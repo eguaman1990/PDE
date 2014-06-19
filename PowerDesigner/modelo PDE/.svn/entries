@@ -1,0 +1,168 @@
+10
+
+dir
+0
+https://marley:443/svn/NuevoPDE/PowerDesigner/modelo%20PDE
+https://marley:443/svn/NuevoPDE
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19007e33-f902-7e49-8cd1-041e1262a2a6
+
+CLASS_fce_gine.oob
+file
+
+
+
+add
+
+CLASS_fce_gine.oom
+file
+
+
+
+add
+
+LDM_PDE_V1.ldb
+file
+
+
+
+add
+
+LDM_PDE_V1.ldm
+file
+
+
+
+add
+
+LDM_PDE_V2.ldb
+file
+
+
+
+add
+
+LDM_PDE_V2.ldm
+file
+
+
+
+add
+
+LDM_PDE_V3.ldb
+file
+
+
+
+add
+
+LDM_PDE_V3.ldm
+file
+
+
+
+add
+
+PDE_V3.sql
+file
+
+
+
+add
+
+PDM_PDE_V1.pdb
+file
+
+
+
+add
+
+PDM_PDE_V1.pdm
+file
+
+
+
+add
+
+PDM_PDE_V2.pdb
+file
+
+
+
+add
+
+PDM_PDE_V2.pdm
+file
+
+
+
+add
+
+PDM_PDE_V3.pdb
+file
+
+
+
+add
+
+PDM_PDE_V3.pdm
+file
+
+
+
+add
+
+PDM_Usuario.ldm
+file
+
+
+
+add
+
+PDM_Usuario.pdm
+file
+
+
+
+add
+
+_notes
+dir
+
+
+
+add
+
+sql_PDE_version1.sql
+file
+
+
+
+add
+
+sql_PDE_version3.sql
+file
+
+
+
+add
+

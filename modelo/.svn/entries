@@ -1,0 +1,147 @@
+10
+
+dir
+0
+https://marley:443/svn/NuevoPDE/modelo
+https://marley:443/svn/NuevoPDE
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+
+
+
+
+
+
+
+
+
+
+
+19007e33-f902-7e49-8cd1-041e1262a2a6
+
+Acceso.class.php
+file
+
+
+
+add
+
+BD.class.php
+file
+
+
+
+add
+
+Cargo.class.php
+file
+
+
+
+add
+
+Categoria.class.php
+file
+
+
+
+add
+
+Configuracion.class.php
+file
+
+
+
+add
+
+Inventario.class.php
+file
+
+
+
+add
+
+Mesa.class.php
+file
+
+
+
+add
+
+MyException.class.php
+file
+
+
+
+add
+
+Porcion.class.php
+file
+
+
+
+add
+
+Producto.class.php
+file
+
+
+
+add
+
+Subcategoria.class.php
+file
+
+
+
+add
+
+Usuario.class.php
+file
+
+
+
+add
+
+Utilidades.class.php
+file
+
+
+
+add
+
+_notes
+dir
+
+
+
+add
+
+class.phpmailer.php
+file
+
+
+
+add
+
+class.smtp.php
+file
+
+
+
+add
+
+demo.class.php
+file
+
+
+
+add
+

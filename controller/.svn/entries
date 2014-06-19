@@ -1,0 +1,105 @@
+10
+
+dir
+0
+https://marley:443/svn/NuevoPDE/controller
+https://marley:443/svn/NuevoPDE
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+
+
+
+
+
+
+
+
+
+
+
+19007e33-f902-7e49-8cd1-041e1262a2a6
+
+_notes
+dir
+
+
+
+add
+
+cargosController.php
+file
+
+
+
+add
+
+categoriaController.php
+file
+
+
+
+add
+
+demo.php
+file
+
+
+
+add
+
+inventariosController.php
+file
+
+
+
+add
+
+mesasController.php
+file
+
+
+
+add
+
+mobileController.php
+file
+
+
+
+add
+
+porcionesController.php
+file
+
+
+
+add
+
+productosController.php
+file
+
+
+
+add
+
+subcategoriasController.php
+file
+
+
+
+add
+
+usuarioController.php
+file
+
+
+
+add
+

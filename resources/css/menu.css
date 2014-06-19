@@ -1,0 +1,99 @@
+
+/* CSS Document */
+.sidebar{
+	margin-bottom:10px;
+}
+.menu, .menu ul {
+    border: 0 none;
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+		
+}
+.menu li {
+    border: 0 none;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 5;
+}
+.menu li:hover {
+    white-space: normal;
+    z-index: 10000;
+}
+.menu li li {
+    float: none;
+}
+.menu ul {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    z-index: 10;
+}
+.menu li:hover > ul {
+    top: 100%;
+    visibility: visible;
+}
+.menu li li:hover > ul {
+    left: 100%;
+    top: 0;
+}
+.menu:after, .menu ul:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.menu, .menu ul {
+    min-height: 0;
+}
+.menu ul {
+    margin: -10px 0 0 -30px;
+    padding: 10px 30px 30px;
+}
+.menu ul ul {
+    margin: -30px 0 0 -10px;
+    padding: 30px 30px 30px 10px;
+}
+.menu, .menu ul li {
+    /*background: none repeat scroll 0 0 #2AA7EA;*/
+    color: #FFF;;
+		background-color:	#343434;	
+		background-image:	url(../images/header2.jpg);
+}
+.menu ul {
+    width: 11em;
+}
+.menu a {
+    color: #FFF;
+    display: block;
+    padding: 0.4em 1em;
+    position: relative;
+    text-decoration: none;
+}
+.menu a:hover, .menu li:hover > a {
+    color: #000 !important;
+		background-color:	white;	background-image:	url('../images/black_menu.png') !important;	
+		background-position:	0px	-30px	!important;
+}
+.menu li li {
+    border: 1px solid #CCCCCC;
+}
+.menu ul > li + li {
+    border-top: 0 none;
+}
+.menu li li:hover > ul {
+    left: 90%;
+    top: 5px;
+}
+.menu > li:first-child > a, .menu li + li + li li:first-child > a {
+}
+
+
+
