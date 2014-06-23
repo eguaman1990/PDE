@@ -15,7 +15,6 @@ if (isset($_REQUEST["id_producto"])) {
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>PDE - Porciones</title>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">

@@ -12,3 +12,11 @@ body {
 .theme-showcase > p > .btn {
   margin: 5px 0;
 }
+input.error {
+    border: 1px dotted #FF0000;
+}
+label.error{
+    color: #FF0000;
+    font-style: italic; 
+		display:none;
+}
