@@ -1,160 +1,192 @@
 <?php
 session_start();
 require_once("../../secureadmin.php");
-if(isset($_REQUEST["id_porcion"])){
-	$id_porcion=$_REQUEST["id_porcion"];
-}else{
-	$id_porcion="0";
+if (isset($_REQUEST["id_porcion"])) {
+  $id_porcion = $_REQUEST["id_porcion"];
+} else {
+  $id_porcion = "0";
 }//accion
-
+if (isset($_REQUEST["id_producto"])) {
+  $id_producto = $_REQUEST["id_producto"];
+} else {
+  $id_producto = "0";
+}//accion
 ?>
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>PDE - Porciones</title>
-<script src="../../resources/js/lib/jquery-1.9.1.js"></script>
-<script src="../../resources/js/lib/jquery-ui.js"></script>
-<script src="../../resources/js/lib/jquery.validate.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/default.css">
-<link rel="stylesheet" type="text/css" href="../../resources/css/menu.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>PDE - Porciones</title>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="Edwin Guamán" name="author">
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap-theme.css" type="text/css">
+    <link href="../../resources/css/theme.css" rel="stylesheet" type="text/css"/>
+  </head>
 
-<body>
-<? require_once("../../header.php"); ?>
-<div class="contenido">
-	<div class="contenido-box formulario">
-  <h1><?=($id_porcion==0)? " Agregar Porción": "Editar Porción"; ?></h1>
-  	<form name="frmAdd" method="post" action="" id="frmAdd">
+  <body>
+    <? require_once("../../header.php"); ?>
+    <div class="container">
+      <form class="form-horizontal" name="frmAdd" method="post" action="" id="frmAdd" >
+        <fieldset>
+          <!-- Form Name -->
+          <legend><?= $id_porcion == 0 ? " Agregar Porción" : "Editar Porción"; ?></legend>
+            <input type="text" name="txtIdPorcion" id="txtIdPorcion"  value="<?=$id_porcion; ?>" />
+            <input type="text" name="txtIdProducto" id="txtIdProducto"  value="<?=$id_producto; ?>" />
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="txtProducto">Producto</label>
+            <div class="col-md-4">
+              <select id="txtProducto" name="txtProducto" class="form-control" required data-msg-required="Seleccione un Producto">
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="txtPorcion">Porcion</label>  
+            <div class="col-md-4">
+              <input id="txtPorcion" name="txtPorcion" type="text" placeholder="Ingrese Porción" 
+                     class="form-control input-md" required data-msg-required="Ingrese el tamaño de la Porción">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="txtUnidadMedida">Unidad Medida</label>
+            <div class="col-md-4">
+              <select id="txtUnidadMedida" name="txtUnidadMedida" class="form-control" required data-msg-required="Seleccione una Unidad de Medida">
+                <option value="">Seleccione...</option>
+                <option value="Gramos">Gramos</option>
+                <option value="Litros">Litros</option>
+                <option value="Kilos">Kilos</option>
+              </select>
+            </div>
+          </div>
 
-      <div class="oculta"><label for="txtIdPorcion">id_porcion</label>
-      <input type="text" name="txtIdPorcion" id="txtIdPorcion" required value="<?=$id_porcion;?>"></div>
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="btnAgregar"></label>
+            <div class="col-md-8">
+              <button id="btnAgregar" name="btnAgregar" class="btn btn-success" type="submit">Aceptar</button>
+              <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">Cancelar</button>
+            </div>
+          </div>
 
-    	<label for="txtSubCategoria">Subcategoria</label>
-      <select name="txtSubCategoria" id="txtSubCategoria"></select>
+        </fieldset>
+      </form>
+    </div>
+    <script src="../../resources/js/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="../../resources/js/lib/jquery-ui.js" type="text/javascript"></script>
+    <script src="../../resources/js/lib/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).ready(function(e) {
+        listarProductos();
+        function listarProductos() {
+          $.ajax({
+            type: "GET",
+            url: "../../controller/inventariosController.php",
+            data: {
+              "accion": "listarTodosProductos"
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                if (e[0].campos.length > 0) {
+                  $.each(e[0].campos, function(key, value) {
+                    var option = $("<option>", {
+                      value: value.id_inventario,
+                      text: value.descripcion
+                    });
+                    $("#txtProducto").append($(option));
+                  });
+                } else {
+                  var option = $("<option>", {
+                    value: "0",
+                    text: "No posee Subcategorias"
+                  });
+                }
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
+              }
+            },
+            failure: function(e) {
+              window.alert();
+            }
+          });
+        }
 
-      <label for="txtDescripcion">Descripción</label>
-      <input type="text" name="txtDescripcion" id="txtDescripcion" required data-msg-required="Ingrese el Nombre del Porción" placeholder="Nombre del Porción" />
+        function agregar() {
+          $.ajax({
+            type: "GET",
+            //url:"http://eguamans.esy.es/controller/porcionesController.php",
+            url: "../../controller/porcionesController.php",
+            data: {
+              'accion': 'agregar',
+              'id_inventario': $("#txtIdProducto").val(),
+              'id_producto': $("#txtProducto").val(),
+              'porcion': $("#txtPorcion").val(),
+              'unidadMedida': $("#txtUnidadMedida").val(),
+              'id_porcion':$("#txtIdPorcion").val()
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                window.alert(e[0].mensaje);
+                window.location = "porcionesDetalleList.php?id_producto="+$("#txtIdProducto").val();
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
+              }
+            },
+            failure: function(e) {
+              window.alert();
+            }
+          });
+        }
 
-      <label for="txtPrecioUnitario">Precio Unitario</label>
-      <input type="text" name="txtPrecioUnitario" id="txtPrecioUnitario" required data-msg-required="Ingrese el Precio del Procuto" placeholder="Precio Unitario" />
-      <div class="buttons">
-        <input type="submit" name="btnAceptar" id="btnAceptar" value="Aceptar" class="btn btn-success">
-        <input type="button" name="btnCancelar" id="btnCancelar" value="Cancelar" class="btn btn-danger">
-      </div>
-  	</form>
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(e) {
-	listarSubCategorias();
-  function listarSubCategorias(){
-		$.ajax({
-			type:"GET",
-			//url:"http://eguamans.esy.es/controller/SubcategoriasController.php",
-			url:"../../controller/SubcategoriasController.php",
-			data:{
-				"accion":"listarCombo"
-			},
-			success: function(e){
-				if(e[0].estado=="ok"){
-					if(e[0].campos.length>0){
-						$.each(e[0].campos,function(key,value){
-							var option = $("<option>",{
-								value:value.id_subcategoria,
-								text:value.subca_descripcion
-							});
-							$("#txtSubCategoria").append($(option));
-						});
-					}else{
-						var option= $("<option>",{
-							value:"0",
-							text:"No posee Subcategorias"
-							});
-					}
-				}else{
-					window.alert("Mensaje de Usuario: "+e[0].mensaje[0].user);
-					window.alert("Mensaje de Administrador: "+e[0].mensaje[0].admin);
-				}
-			},
-			failure:function(e){
-				window.alert();
-			}
-		});
-	}
-	
-	function agregar(){
-		$.ajax({
-			type:"GET",
-			//url:"http://eguamans.esy.es/controller/porcionesController.php",
-			url:"../../controller/porcionesController.php",
-			data:
-			{
-				'accion':'agregar',
-				'id_porcion':$("#txtIdPorcion").val(),
-				'descripcion':$("#txtDescripcion").val(),
-				'id_subcategoria':$("#txtSubCategoria").val(),
-				'precio_unitario':$("#txtPrecioUnitario").val()
-			},
-			success: function(e){
-				if(e[0].estado=="ok"){
-					window.alert(e[0].mensaje);
-					window.location="porcionesList.php";
-				}else{
-					window.alert("Mensaje de Usuario: "+e[0].mensaje[0].user);
-					window.alert("Mensaje de Administrador: "+e[0].mensaje[0].admin);
-				}
-			},
-			failure:function(e){
-				window.alert();
-			}
-		});
-	}
-	
-	var v = jQuery("#frmAdd").validate({
-		submitHandler: function(form) {
-			agregar();
-		}
-	});
-	
-	$("#btnCancelar").on("click",function(){
-		location.href="porcionesList.php";
-	});
-	
-	function buscar(){
-		$.ajax({
-			type:"POST",
-			url:"../../controller/porcionesController.php",
-			data:
-			{
-				'accion':'listar',
-				'id_porcion':$("#txtIdPorcion").val()
-			},
-			success: function(e){
-				if(e[0].estado=="ok"){
-					if(e[0].campos.length>0){
-						$.each(e[0].campos,function(key,value){
-							$("#txtDescripcion").val(value.pro_descripcion);
-							$("#txtPrecioUnitario").val(value.pro_precio_unitario);
-							$("#txtSubCategoria option[value="+ value.id_subcategoria +"]").attr("selected",true);
-						});
-					}
-				}else{
-					window.alert("Mensaje de Usuario: "+e[0].mensaje[0].user);
-					window.alert("Mensaje de Administrador: "+e[0].mensaje[0].admin);
-				}
-			},
-			failure:function(e){
-				window.alert();
-			}
-		});	
-	}
-	
-	if($("#txtIdPorcion").val()!="0"){
-		buscar();
-	}
-	
-});
-</script>
-</body>
+        var v = jQuery("#frmAdd").validate({
+          submitHandler: function(form) {
+            agregar();
+          }
+        });
+
+        $("#btnCancelar").on("click", function() {
+          location.href = "porcionesList.php";
+        });
+
+        function buscar() {
+          $.ajax({
+            type: "POST",
+            url: "../../controller/porcionesController.php",
+            data: {
+              'accion': 'listar',
+              'id_porcion': $("#txtIdPorcion").val()
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                if (e[0].campos.length > 0) {
+                  $.each(e[0].campos, function(key, value) {
+                    $("#txtDescripcion").val(value.pro_descripcion);
+                    $("#txtPrecioUnitario").val(value.pro_precio_unitario);
+                    $("#txtSubCategoria option[value=" + value.id_subcategoria + "]").attr("selected", true);
+                  });
+                }
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
+              }
+            },
+            failure: function(e) {
+              window.alert();
+            }
+          });
+        }
+
+        if ($("#txtIdPorcion").val() !== "0") {
+          buscar();
+        }
+
+      });
+    </script>
+  </body>
 </html>

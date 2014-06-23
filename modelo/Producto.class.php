@@ -241,6 +241,7 @@ class Producto
 		try{
 			//PREGUNTO SI VINO EN MODO QUERY O EN MODO COUNT
 			$nro_registros=0;
+      $campos=array();
 			if($modo=="query"){
 				$sqlCampos=" p.id_producto,p.id_subcategoria,p.pro_descripcion,p.pro_precio_unitario,s.subca_descripcion ";	
 			}else{

@@ -319,6 +319,7 @@ class Inventario
 		try{
 			//PREGUNTO SI VINO EN MODO QUERY O EN MODO COUNT
 			$nro_registros=0;
+      $campos=array();
 			$campos=array();
 			if($modo=="query"){
 				$sqlCampos=" ID_INVENTARIO, INV_CANTIDAD, INV_FECHA_INGRESO, INV_FECHA_VENCIMIENTO, INV_STOCK_MINIMO, INV_PRECIO_UNITARIO, INV_DESCRIPCION, INV_UNIDAD ";	

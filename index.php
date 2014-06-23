@@ -20,7 +20,7 @@
 <body>
 <? require_once("header.php"); ?>
 <br />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="resources/js/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="resources/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

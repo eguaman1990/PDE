@@ -108,6 +108,7 @@ if ($accion == "listar") {
     } else {
       $campos = "";
       $estado = "no";
+      $mensaje="<br /><div class='alert alert-danger'><strong>Lo Siento!</strong> No se encontraron Mesas.</div>";
     }
   }
   $paginador = "";

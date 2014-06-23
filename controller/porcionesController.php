@@ -16,6 +16,11 @@ $mensaje='';/**	esta variabla contandra un mensaje dependiendo del estado en el 
 $strsql="";/**	esta variable es la que envia a mi clase la query de mi where*/
 //$idUsuarioIngresa=$_SESSION["id_porcion"];/**	idUsuarioIngresa variable que la ocupo para guardar el usuario_ingresa o el usuario modifica segun correcponda**/
 $fechaIngresa=date("Y-m-d H:i:s");/**	fechaIngresa Variavle que me permite gustadar la fecha actual para poder definir fecha_ingresa o fecha_modifica segun corresponda**/
+$campos = "";
+$lngPageCount = 0;
+$lngPageCount = 0;
+$cor = 0;
+$lngRecordCount=0;
 //****************************	FIN VALIABLES GLOBALES	******************************************//
 ####################################################################################################
 //****************************	INICIO DE TODOS MIS REQUEST	**************************************//
@@ -49,6 +54,12 @@ if(isset($_REQUEST["porcion"])){
 	$porcion="";
 }//porcion
 
+if(isset($_REQUEST["unidadMedida"])){
+  $unidadMedida=$_REQUEST["unidadMedida"];
+}else{
+  $unidadMedida="";
+}
+
 ####################################################################################################
 //****************************	INICIO DEL LISTAR	PORCION************************************************//
 if ($accion=="listar"){
@@ -67,8 +78,13 @@ if ($accion=="listar"){
 	}//RECIBIMOS EL NUMERO DE LA PAGINA PARA CONTROLARLO CON EL PAGINADOR 
 	
 	if($id_porcion!=""){
-		$strsql.=" and p.id_porcion='".$id_porcion."'";
+		$strsql.=" and por.id_porcion='".$id_porcion."'";
 	}
+  
+  if($id_producto!=""){
+    $strsql.=" and pro.id_producto='".$id_producto."'";
+  }
+  
 	
 	$arr=array();
 				
@@ -79,13 +95,7 @@ if ($accion=="listar"){
 	//entra al if en caso de que se pierda la conexion con la base de datos
 	if ($objPorcion->bd->myException->getEstado()==1){
 		$estado="error";
-		foreach($objPorcion->myException->getMensaje() as $msje){
-			if ($_SESSION['tipo_usuario']=="ADMINISTRADOR"){
-				$mensaje.=$msje['user']."<br>".$msje['admin']."<br>";
-			}else{
-				$mensaje.=$msje['user']."<br>";
-			}
-		}
+		$mensaje=$objPorcion->myException->getMensaje();
 	}else{
 		/*echo "ENTRO AL PAGINADOR";*/
 		$lngRecordCount = $rs;
@@ -112,6 +122,7 @@ if ($accion=="listar"){
 		}else{
 			$campos="";
 			$estado="no";
+      $mensaje="<br /><div class='alert alert-danger'><strong>Lo Siento!</strong> No se encontraron Registros.</div>";
 		}
 	}
 	$paginador="";
@@ -131,7 +142,7 @@ if ($accion=="agregar"){
 	if($res==0){
 		/**	PORCION NO EXISTE**/
 		$dep="entro a ingresar";
-		$resultado=$objPorcion->crear($id_producto, $id_inventario,$porcion);
+		$resultado=$objPorcion->crear($id_producto, $id_inventario,$porcion,$unidadMedida);
 		if($objPorcion->myException->getEstado()==0){
 			$estado="ok";
 			$mensaje="Porcion Ingresado Exitosamente";

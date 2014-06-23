@@ -244,6 +244,7 @@ class Cargo
 		try{
 			//PREGUNTO SI VINO EN MODO QUERY O EN MODO COUNT
 			$nro_registros=0;
+      $campos=array();
 			if($modo=="query"){
 				$sqlCampos="id_cargo, ca_descripcion";	
 			}else{

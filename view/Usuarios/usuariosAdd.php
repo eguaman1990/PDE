@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 require_once("../../secureadmin.php");
 require_once('../../modelo/Usuario.class.php');

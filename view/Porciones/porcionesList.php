@@ -20,7 +20,7 @@ require_once("../../secureadmin.php");
     <? require_once("../../header.php"); ?>
     <div class="container">
       <div class="page-header">
-        <h1>Categorías</h1>
+        <h1>Porciones</h1>
       </div>
       <form id="form1" name="form1" method="post" action="" class="form-horizontal" role="form">
 
@@ -54,7 +54,7 @@ require_once("../../secureadmin.php");
             url: "../../controller/productosController.php",
             data: {
               'accion': 'listar',
-              'nombre': $("#txtNombre").val(),
+              'descripcion': $("#txtNombre").val(),
               'pag': $("#pag").val()
             },
             success: function(e) {
@@ -101,10 +101,10 @@ require_once("../../secureadmin.php");
                     });
                     $(tr).append($(td));
                     var button = $("<a>", {
-                      href: "productosAdd.php?id_producto=" + value.id_producto,
+                      href: "porcionesAdd.php?id_producto=" + value.id_producto,
                       name: "btnEditar",
                       id: "btnEditar",
-                      html: "Editar",
+                      html: "Editar"
                     });
                     $(button).addClass("btn btn-success");
                     var btnDelete = $("<a>", {
@@ -119,15 +119,23 @@ require_once("../../secureadmin.php");
                         }
                       }
                     });
-
-
                     $(btnDelete).addClass("btn btn-danger");
+                    var btnAddPorcion = $("<a>",{
+                      href: "porcionesDetalleList.php?id_producto=" + value.id_producto,
+                      name:"btnAddPorcion",
+                      id:"btnAddPorcion",
+                      html:"Ver Porciones"
+                    });
+                    $(btnAddPorcion).addClass("btn btn-primary");
+                    
                     var td = $("<td>", {
                       text: ""
                     });
                     $(td).append($(button));
                     $(td).append("&nbsp;&nbsp;&nbsp;")
                     $(td).append($(btnDelete));
+                    $(td).append("&nbsp;&nbsp;&nbsp;")
+                    $(td).append($(btnAddPorcion));
                     $(tr).append($(td));
 
                     $(tabla).append(tr);

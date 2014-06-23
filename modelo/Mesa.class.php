@@ -1,4 +1,4 @@
-<?
+<?php
 ////////////////////////////////////////////////////
 // Mesa - Mesa class
 //
@@ -223,6 +223,7 @@ class Mesa
 		try{
 			//PREGUNTO SI VINO EN MODO QUERY O EN MODO COUNT
 			$nro_registros=0;
+      $campos=array();
 			if($modo=="query"){
 				$sqlCampos="id_mesa, me_nombre_mesa,me_posicion";	
 			}else{

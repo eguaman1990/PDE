@@ -18,7 +18,7 @@ require_once("../../secureadmin.php");
 
   <body>
     <? require_once("../../header.php"); ?>
-    
+
     <div class="container">
       <div class="page-header">
         <h1>Mesas</h1>
@@ -107,7 +107,7 @@ require_once("../../secureadmin.php");
                       id: "btnDelete" + value.id_mesa,
                       click: function() {
                         var rs = window.confirm("Desea Eliminar esta Mesa?");
-                        if (rs == true) {
+                        if (rs === true) {
                           eliminar(value.id_mesa);
                         }
                       }
@@ -127,10 +127,16 @@ require_once("../../secureadmin.php");
                   $(".lista").append($(tabla));
                   $(".paginador").append(e[0].paginador);
                 } else {
-                  $(".lista").html("No existen Mesas")
+                  $(".lista").html("No existen Mesas");
                 }
 
+              } else if (e[0].estado === "no") {
+                $(".lista").empty();
+                $(".paginador").empty();
+                $(".lista").append(e[0].mensaje);
+                $(".paginador").append(e[0].paginador);
               } else {
+
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
@@ -151,7 +157,7 @@ require_once("../../secureadmin.php");
                       'id_mesa': id_mesa
                     },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
                 window.location = "mesasList.php";
               } else {
