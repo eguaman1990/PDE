@@ -1,0 +1,49 @@
+10
+
+dir
+0
+https://marley:443/svn/NuevoPDE/Fabrimed/Fabrimed
+https://marley:443/svn/NuevoPDE
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+19007e33-f902-7e49-8cd1-041e1262a2a6
+
+_notes
+dir
+
+
+
+add
+
+index.php
+file
+
+
+
+add
+
+resources
+dir
+
+
+
+add
+

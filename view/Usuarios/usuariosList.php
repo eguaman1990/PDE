@@ -42,7 +42,6 @@ require_once("../../secureadmin.php");
     <script type="text/javascript">
       function avance_pagina($pag) {//para cuando hayan varios registros
         //es el boton de pag 2,3,4,etc;
-
         document.getElementById("pag").value = $pag;
         document.form1.btnBuscar.click();//este es el nombre del formulario...
         document.getElementById("pag").value = 1;
@@ -138,12 +137,14 @@ require_once("../../secureadmin.php");
                     var button = $("<a>", {
                       href: "usuariosAdd.php?id_usuario=" + value.id_usuario,
                       name: "btnEditar",
-                      id: "btnEditar"
+                      id: "btnEditar",
+                      html: "Editar"
                     });
-                    $(button).addClass("btn btn-edit");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
+                      html: "Eliminar",
                       id: "btnDelete" + value.id_usuario,
                       click: function() {
                         var rs = window.confirm("Desea Eliminar este Usuario?");
@@ -154,11 +155,12 @@ require_once("../../secureadmin.php");
                     });
 
 
-                    $(btnDelete).addClass("btn btn-delete");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var td = $("<td>", {
                       text: ""
                     });
                     $(td).append($(button));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
                     $(td).append($(btnDelete));
                     $(tr).append($(td));
 
@@ -169,22 +171,22 @@ require_once("../../secureadmin.php");
                   $(".lista").append($(tabla));
                   $(".paginador").append(e[0].paginador);
 
-                } else if (e[0].estado === "no") {
-                  $(".lista").empty();
-                  $(".paginador").empty();
-                  $(".lista").append(e[0].mensaje);
-                  $(".paginador").append(e[0].paginador);
+
                 } else {
                   $(".lista").html("No existen Usuarios");
                 }
-
+              } else if (e[0].estado === "no") {
+                $(".lista").empty();
+                $(".paginador").empty();
+                $(".lista").append(e[0].mensaje);
+                $(".paginador").append(e[0].paginador);
               } else {
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
             },
-            failure: function(e) {
-              window.alert();
+            error: function(e) {
+              window.alert("Error");
             }
           });
         }
@@ -193,11 +195,10 @@ require_once("../../secureadmin.php");
           $.ajax({
             type: "POST",
             url: "../../controller/usuarioController.php",
-            data:
-                    {
-                      'accion': 'eliminar',
-                      'id_usuario': id_usuario
-                    },
+            data: {
+              'accion': 'eliminar',
+              'id_usuario': id_usuario
+            },
             success: function(e) {
               if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
@@ -208,7 +209,7 @@ require_once("../../secureadmin.php");
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
             },
-            failure: function(e) {
+            error: function(e) {
               window.alert();
             }
           });

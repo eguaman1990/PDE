@@ -243,7 +243,7 @@ class Inventario
 						"INV_UNIDAD"=>$this->getUnidad()
 					);
 					
-					$rs1=$this->bd->update('Inventarios',$parametros,$condicion);
+					$rs1=$this->bd->update('inventarios',$parametros,$condicion);
 					if ($this->bd->myException->getEstado()==0){
 						return 1;
 					}else{
@@ -275,7 +275,7 @@ class Inventario
 		try{
 			if ($this->myException->getEstado()==0){
 				#verifico que no existan ese Inventario
-				$strsql="select id_inventario from Inventarios where id_inventario=?";
+				$strsql="select id_inventario from inventarios where id_inventario=?";
 				$condicion=array($this->getIdInventario());
 				$res=$this->bd->ejecutar($strsql,$condicion);
 				if ($this->bd->myException->getEstado()==0){
@@ -383,6 +383,36 @@ class Inventario
 	}
 	/*************************************	FIN DE LA FUNCTION LISTAR		**************************************/
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  function actualizarCantidad($idInventario,$cantidad){
+    $this->setIdInventario($idInventario);
+    $this->setCantidad($cantidad);
+		try{
+			if ($this->myException->getEstado()==0){
+				#verifico que no existan ese Inventario
+				$strsql="update inventarios set INV_CANTIDAD=INV_CANTIDAD+".$this->getCantidad()." where id_inventario=?";
+				$condicion=array($this->getIdInventario());        
+				$res=$this->bd->ejecutar($strsql,$condicion);
+				if ($this->bd->myException->getEstado()==0){
+					return 1;//devuelve 1 si encuentra					
+				}else{
+					$this->myException->setEstado(1);
+					foreach($this->bd->myException->getMensaje() as $er){
+						$this->myException->addError(array('user'=>$er['user'],'admin'=>$er['admin']));
+					}
+					return 0;
+				}//fin del if que me contInventarioa que no se haya caido la consulta
+			}else{
+				return 0;
+			}//fin del if que me contInventarioa que no se haya caido l coneccion
+		}catch(Exception $e){
+			$this->myException->setEstado(1);
+			$error=array(
+			   'user'=>'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+				'admin'=>$e->getMessage()."<br>codigo: ".$e->getCode()."<br>linea: ".$e->getLine()."<br>archivo: ".$e->getFile()
+			);
+			$this->myException->addError($error);
+		}//fin del try catch
+  }
 	#####################################	FIN DE LOS METODOS		###############################################
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	#####################################	CONSTRUCTOR Y DESTRUCTOR	###########################################

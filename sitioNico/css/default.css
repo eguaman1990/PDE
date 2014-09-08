@@ -1,0 +1,119 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	background-color: #b5038d;
+	background-image: url(../images/fondo.png);
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+	margin: 0px;
+	padding: 0px;
+}
+#content {
+	width: 1024px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+#header img {
+	display: block;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+#menu{
+	display: block;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	width:834px;
+	height:80px;
+	background:url(../images/menu.png);
+	position:relative;
+}
+#inicio{
+	position: absolute;
+	left: 46px;
+	top: 1px;
+	width: 55px;
+	height: 57px;
+	z-index: 1;
+}
+#inicio a{
+	width:55px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}
+#festival {
+	position: absolute;
+	left: 110px;
+	top: 1px;
+	width: 145px;
+	height: 57px;
+	z-index: 1;
+}
+#festival a{
+	width:145px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}
+#gastronomia {
+	position: absolute;
+	left: 257px;
+	top: 1px;
+	width: 181px;
+	height: 57px;
+	z-index: 1;
+}
+#gastronomia a{
+	width:181px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}
+#artistas {
+	position: absolute;
+	left: 437px;
+	top: 2px;
+	width: 133px;
+	height: 57px;
+	z-index: 1;
+}
+#artistas a{
+	width:133px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}
+#galeria{
+	position: absolute;
+	left: 573px;
+	top: 1px;
+	width: 103px;
+	height: 57px;
+	z-index: 1;
+}
+#galeria a{
+	width:103px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}
+#mapa{
+	position: absolute;
+	left: 678px;
+	top: 1px;
+	width: 118px;
+	height: 57px;
+	z-index: 1;
+}
+#mapa a{
+	width:118px;
+	height: 57px;
+	z-index:2;
+	display:block;
+}

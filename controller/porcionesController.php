@@ -85,6 +85,10 @@ if ($accion=="listar"){
     $strsql.=" and pro.id_producto='".$id_producto."'";
   }
   
+  if($id_inventario!=""){
+    $strsql.=" and por.id_inventario='".$id_inventario."'";
+  }
+  
 	
 	$arr=array();
 				
@@ -153,7 +157,7 @@ if ($accion=="agregar"){
 	}else{
 		$dep="entro a actualizar";
 		/** PORCION EXISTE**/
-		$resultado=$objPorcion->actualizar($id_porcion,$id_producto,$id_inventario,$porcion);
+		$resultado=$objPorcion->actualizar($id_porcion,$id_producto,$id_inventario,$porcion,$unidadMedida);
 		if($objPorcion->myException->getEstado()==0){
 			$estado="ok";
 			$mensaje="Porcion Actualizado Exitosamente";

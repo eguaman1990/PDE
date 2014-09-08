@@ -20,6 +20,7 @@ $strsql="";/**	esta variable es la que envia a mi clase la query de mi where*/
 $fechaIngresa=date("Y-m-d H:i:s");/**	fechaIngresa Variavle que me permite gustadar la fecha actual para poder definir fecha_ingresa o fecha_modifica segun corresponda**/
 $campos="";
 $cor=0;
+
 //****************************	FIN VALIABLES GLOBALES	******************************************//
 ####################################################################################################
 //****************************	INICIO DE TODOS MIS REQUEST	**************************************//
@@ -94,6 +95,7 @@ if(isset($_REQUEST["id_cargo"])){
 }else{
 	$id_cargo="0";
 }//id_cargo
+
 //****************************	FIN DE TODOS MIS REQUEST	****************************************//
 ####################################################################################################
 //****************************	INICIO DEL LOGIN	************************************************//
@@ -137,7 +139,7 @@ if ($accion=="listar"){
 		$strsql.=" and u.ID_USUARIO='".$id_usuario."'";
 	}
 	if($nombre!=""){
-			$strsql.=" and u.US_NOMBRE like '%".$nombre."%'";
+    $strsql.=" and u.US_NOMBRE like '%".$nombre."%'";
 	}
 	
 	$arr=array();
@@ -178,6 +180,7 @@ if ($accion=="listar"){
 		}else{
 			$campos="";
 			$estado="no";
+      $mensaje="<br /><div class='alert alert-danger'><strong>Lo Siento!</strong> No se encontraron Registros.</div>";
 		}
 	}
 	$paginador="";
@@ -226,10 +229,9 @@ if ($accion=="agregar"){
 if($accion=="eliminar"){
 	$res=$objUser->buscar($id_usuario);
 	if($res!=0){
-		$dep="entro a eliminar";
+		
 		$resultado=$objUser->eliminar($id_usuario);
 		if($objUser->myException->getEstado()==0){
-
 			$estado="ok";
 			$mensaje="Usuario Eliminado Exitosamente";
 		}else{

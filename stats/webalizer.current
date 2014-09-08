@@ -1,0 +1,194 @@
+# Webalizer V2.23-05 Incremental Data - 09/06/2014 12:50:56
+2014 9 6 12 50 56
+52 50 3 23 8 3 668453 24 8 0 0 0
+1 4 26 1 6
+2 2 7468 1 1 1 0 0
+2 2 7468 1 1 1 0 0
+16 15 332110 2 4 2 0 0
+28 27 306471 2 16 2 0 0
+2 2 7468 1 1 1 0 0
+2 2 7468 1 1 1 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+4 4 14936 2 0 0
+2 2 7468 1 0 0
+2 2 7468 1 0 0
+0 0 0 0 0 0
+4 4 14936 2 0 0
+14 13 324642 3 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+26 25 299003 15 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0
+0
+0
+50
+0
+0
+0
+0
+0
+0
+0
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# -urls- 
+/controller/inventariosController.php
+0 2 0 2946 0 0 0 0
+/controller/cargosController.php
+0 1 0 665 0 0 0 0
+/Fabrimed/
+0 6 0 660 6 5 0 0
+/view/Usuarios/usuariosAdd.php
+0 1 0 2335 0 0 0 0
+/resources/bootstrap/css/bootstrap-theme.css
+0 2 0 3606 0 0 0 0
+/securearea.php
+0 2 0 2766 0 0 0 0
+/resources/bootstrap/css/bootstrap.css
+0 2 0 36752 0 0 0 0
+/resources/js/lib/jquery-1.9.1.js
+0 2 0 159626 0 0 0 0
+/resources/js/lib/jquery.validate.js
+0 1 0 10007 0 0 0 0
+/favicon.ico
+0 8 0 58864 0 0 0 0
+/controller/productosController.php
+0 1 0 497 0 0 0 0
+/view/Producto/inventariosList.php
+0 2 0 4552 0 0 0 0
+/resources/css/signin.css
+0 2 0 690 0 0 0 0
+/resources/bootstrap/js/bootstrap.js
+0 2 0 22224 0 0 0 0
+/controller/usuarioController.php
+0 2 0 1476 0 0 0 0
+/resources/css/theme.css
+0 2 0 550 0 0 0 0
+/
+0 3 0 6609 2 0 0 0
+/view/Platos/platosList.php
+0 1 0 2213 0 0 0 0
+/resources/bootstrap/css/bootstrap.css.map
+0 1 0 53544 0 0 0 0
+/resources/images/logo2.png
+1 2 0 14216 0 0 0 0
+/resources/js/lib/jquery-ui.js
+0 2 0 214576 0 0 0 0
+/resources/js/lib/jquery-1.11.0.min.js
+0 2 0 66738 0 0 0 0
+/view/Usuarios/usuariosList.php
+0 1 0 2301 0 0 0 0
+# End Of Table - urls
+# -sites- (monthly)
+200.111.61.177
+0 26 25 299003 1 1409859407 0 0
+/controller/cargosController.php
+186.67.23.138
+0 14 13 324642 1 1409750603 0 0
+/securearea.php
+66.249.83.95
+0 12 12 44808 6 1410007855 0 0
+/Fabrimed/
+# End Of Table - sites (monthly)
+# -sites- (daily)
+66.249.83.95
+0 2 2 7468 1 1410007855 0 0
+/Fabrimed/
+# End Of Table - sites (daily)
+# -referrers- 
+http://www.eguaman.cl/view/Usuarios/usuariosAdd.php
+1 2
+http://www.eguaman.cl/index.php
+1 1
+- (Direct Request)
+0 16
+http://www.eguaman.cl/view/Producto/inventariosList.php
+1 4
+http://www.eguaman.cl/
+1 14
+http://www.eguaman.cl/view/Platos/platosList.php
+1 2
+http://www.eguaman.cl/view/Usuarios/usuariosList.php
+1 2
+http://www.eguaman.cl/securearea.php
+1 11
+# End Of Table - referrers
+# -agents- 
+Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0 Google favicon
+0 12
+Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36
+0 14
+Mozilla/5.0 (Windows NT 6.3; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0
+0 26
+# End Of Table - agents
+# -search strings- 
+# End Of Table - search strings
+# -usernames- 
+# End Of Table - usernames

@@ -33,8 +33,10 @@ if (isset($_REQUEST["id_producto"])) {
         <fieldset>
           <!-- Form Name -->
           <legend><?= $id_porcion == 0 ? " Agregar Porción" : "Editar Porción"; ?></legend>
+          <div class="hidden">
             <input type="text" name="txtIdPorcion" id="txtIdPorcion"  value="<?=$id_porcion; ?>" />
             <input type="text" name="txtIdProducto" id="txtIdProducto"  value="<?=$id_producto; ?>" />
+            </div>
           <!-- Select Basic -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="txtProducto">Producto</label>
@@ -58,6 +60,7 @@ if (isset($_REQUEST["id_producto"])) {
                 <option value="Gramos">Gramos</option>
                 <option value="Litros">Litros</option>
                 <option value="Kilos">Kilos</option>
+                <option value="Mililitros">Mililitros</option>
               </select>
             </div>
           </div>
@@ -67,7 +70,7 @@ if (isset($_REQUEST["id_producto"])) {
             <label class="col-md-4 control-label" for="btnAgregar"></label>
             <div class="col-md-8">
               <button id="btnAgregar" name="btnAgregar" class="btn btn-success" type="submit">Aceptar</button>
-              <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">Cancelar</button>
+              <button id="btnCancelar" name="btnCancelar" class="btn btn-danger" type="button">Cancelar</button>
             </div>
           </div>
 
@@ -109,8 +112,8 @@ if (isset($_REQUEST["id_producto"])) {
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
             },
-            failure: function(e) {
-              window.alert();
+            error: function(e) {
+              window.alert(e);
             }
           });
         }
@@ -137,8 +140,8 @@ if (isset($_REQUEST["id_producto"])) {
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
             },
-            failure: function(e) {
-              window.alert();
+            error: function(e) {
+              window.alert(e);
             }
           });
         }
@@ -150,7 +153,7 @@ if (isset($_REQUEST["id_producto"])) {
         });
 
         $("#btnCancelar").on("click", function() {
-          location.href = "porcionesList.php";
+          location.href = "porcionesDetalleList.php?id_producto="+$("#txtIdProducto").val();
         });
 
         function buscar() {
@@ -165,9 +168,9 @@ if (isset($_REQUEST["id_producto"])) {
               if (e[0].estado === "ok") {
                 if (e[0].campos.length > 0) {
                   $.each(e[0].campos, function(key, value) {
-                    $("#txtDescripcion").val(value.pro_descripcion);
-                    $("#txtPrecioUnitario").val(value.pro_precio_unitario);
-                    $("#txtSubCategoria option[value=" + value.id_subcategoria + "]").attr("selected", true);
+                    $("#txtPorcion").val(value.porc_porcion);
+                    $("#txtUnidadMedida option[value=" + value.porc_unidad + "]").attr("selected", true);
+                    $("#txtProducto option[value=" + value.id_inventario + "]").attr("selected", true);
                   });
                 }
               } else {
@@ -181,7 +184,7 @@ if (isset($_REQUEST["id_producto"])) {
           });
         }
 
-        if ($("#txtIdPorcion").val() !== "0") {
+        if ($("#txtIdPorcion").val() !== "0" && $("#txtIdProducto").val() !== "0") {
           buscar();
         }
 

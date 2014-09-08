@@ -120,28 +120,29 @@ require_once("../../secureadmin.php");
                     var button = $("<a>", {
                       href: "inventariosAdd.php?id_inventario=" + value.id_inventario,
                       name: "btnEditar",
-                      id: "btnEditar"
+                      id: "btnEditar",
+                      html: "Editar"
                     });
-                    $(button).addClass("btn btn-edit");
-                    /*var btnDelete =$("<a>",{
-                     href:"#",
-                     name:"btnDelete",
-                     id:"btnDelete"+value.id_inventario,
-                     click:function(){
-                     var rs= window.confirm("Desea Eliminar esta Producto del Inventario?");								
-                     if(rs==true){
-                     eliminar(value.id_inventario);
-                     }
-                     }
-                     });
-                     
-                     
-                     $(btnDelete).addClass("btn btn-delete");*/
+                    $(button).addClass("btn btn-success btn-xs");
+                    var btnDelete = $("<a>", {
+                      href: "#",
+                      name: "btnDelete",
+                      id: "btnDelete" + value.id_inventario,
+                      html: "Eliminar",
+                      click: function() {
+                        var rs = window.confirm("Desea Eliminar esta Producto?");
+                        if (rs === true) {
+                            eliminar(value.id_inventario);
+                          }
+                        }
+                      });
+                              $(btnDelete).addClass("btn btn-danger btn-xs"); 
                     var td = $("<td>", {
-                      text: ""
+                              text: ""
                     });
                     $(td).append($(button));
-                    //$(td).append($(btnDelete));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
+                    $(td).append($(btnDelete));
                     $(tr).append($(td));
 
                     $(tabla).append(tr);
@@ -149,7 +150,7 @@ require_once("../../secureadmin.php");
                   $(".lista").append($(tabla));
                   $(".paginador").append(e[0].paginador);
                 } else {
-                  $(".lista").html("No existen Productos En nuestro Inventario")
+                  $(".lista").html("No existen Productos En nuestro Inventario");
                 }
 
               } else if (e[0].estado === "no") {

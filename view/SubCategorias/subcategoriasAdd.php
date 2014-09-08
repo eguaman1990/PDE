@@ -67,7 +67,7 @@ if (isset($_REQUEST["id_subcategoria"])) {
               "accion": "listarCombo"
             },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 if (e[0].campos.length > 0) {
                   $.each(e[0].campos, function(key, value) {
                     var option = $("<option>", {
@@ -81,6 +81,7 @@ if (isset($_REQUEST["id_subcategoria"])) {
                     value: "0",
                     text: "No posee Categorias"
                   });
+                  $("#txtCategoria").append($(option));
                 }
               } else {
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
@@ -97,15 +98,14 @@ if (isset($_REQUEST["id_subcategoria"])) {
           $.ajax({
             type: "POST",
             url: "../../controller/subcategoriasController.php",
-            data:
-                    {
-                      'accion': 'agregar',
-                      'id_subcategoria': $("#txtIdSubcategoria").val(),
-                      'descripcion': $("#txtDescripcion").val(),
-                      'id_categoria': $("#txtCategoria").val()
-                    },
+            data: {
+              'accion': 'agregar',
+              'id_subcategoria': $("#txtIdSubcategoria").val(),
+              'descripcion': $("#txtDescripcion").val(),
+              'id_categoria': $("#txtCategoria").val()
+            },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
                 window.location = "subcategoriasList.php";
               } else {
@@ -129,13 +129,12 @@ if (isset($_REQUEST["id_subcategoria"])) {
           $.ajax({
             type: "POST",
             url: "../../controller/subcategoriasController.php",
-            data:
-                    {
-                      'accion': 'listar',
-                      'id_subcategoria': $("#txtIdSubcategoria").val()
-                    },
+            data: {
+              'accion': 'listar',
+              'id_subcategoria': $("#txtIdSubcategoria").val()
+            },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 if (e[0].campos.length > 0) {
                   $.each(e[0].campos, function(key, value) {
                     $("#txtCategoria option[value=" + value.id_categoria + "]").attr("selected", true);

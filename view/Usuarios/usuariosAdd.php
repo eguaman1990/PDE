@@ -149,22 +149,21 @@ if (isset($_REQUEST["id_usuario"])) {
           $.ajax({
             type: "POST",
             url: "../../controller/usuarioController.php",
-            data:
-                    {
-                      'accion': 'agregar',
-                      'nombre': $("#txtNombre").val(),
-                      'apellido': $("#txtApellido").val(),
-                      'edad': $("#txtEdad").val(),
-                      'direccion': $("#txtDireccion").val(),
-                      'email': $("#txtEmail").val(),
-                      'fono': $("#txtTelefono").val(),
-                      'user': $("#txtUser").val(),
-                      'id_usuario': $("#txtIdUsuario").val(),
-                      'clave': $("#txtPassword").val(),
-                      'id_cargo': $("#txtCargo").val()
-                    },
+            data: {
+              'accion': 'agregar',
+              'nombre': $("#txtNombre").val(),
+              'apellido': $("#txtApellido").val(),
+              'edad': $("#txtEdad").val(),
+              'direccion': $("#txtDireccion").val(),
+              'email': $("#txtEmail").val(),
+              'fono': $("#txtTelefono").val(),
+              'user': $("#txtUser").val(),
+              'id_usuario': $("#txtIdUsuario").val(),
+              'clave': $("#txtPassword").val(),
+              'id_cargo': $("#txtCargo").val()
+            },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
                 window.location = "usuariosList.php";
               } else {
@@ -172,8 +171,8 @@ if (isset($_REQUEST["id_usuario"])) {
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
             },
-            failure: function(e) {
-              window.alert();
+            error: function(e, f, g) {
+              window.alert(f);
             }
           });
         }
@@ -187,13 +186,12 @@ if (isset($_REQUEST["id_usuario"])) {
           $.ajax({
             type: "POST",
             url: "../../controller/usuarioController.php",
-            data:
-                    {
-                      'accion': 'listar',
-                      'id_usuario': $("#txtIdUsuario").val()
-                    },
+            data: {
+              'accion': 'listar',
+              'id_usuario': $("#txtIdUsuario").val()
+            },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 if (e[0].campos.length > 0) {
                   $.each(e[0].campos, function(key, value) {
                     $("#txtNombre").val(value.nombre);

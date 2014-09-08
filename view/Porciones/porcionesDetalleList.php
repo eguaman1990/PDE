@@ -10,7 +10,6 @@ if (isset($_REQUEST["id_producto"])) {
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
     <title>Detalle Porciones </title>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -28,8 +27,10 @@ if (isset($_REQUEST["id_producto"])) {
         <h1>Detalle de las Porciones del Plato <b id="pro_descripcion"></b></h1>
       </div>
       <form id="form1" name="form1" method="post" action="" class="form-horizontal" role="form">
-        <input type="text" name="txtIdProducto" id="txtIdProducto" required value="<?= $id_producto; ?>">
-        <input id="pag" type="hidden" value="1">
+        <div class="hidden">
+          <input type="text" name="txtIdProducto" id="txtIdProducto" required value="<?= $id_producto; ?>">
+          <input id="pag" type="hidden" value="1">
+        </div>
         <div class="form-group">
           <div class="col-sm-6">
             <input type="text" name="txtNombre" id="txtNombre"  placeholder="Busqueda por Porción" class="form-control"/>
@@ -40,188 +41,186 @@ if (isset($_REQUEST["id_producto"])) {
       </form>
       <div class="lista"></div>
       <div class="paginador"></div>
-      <script src="../../resources/js/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
-      <script src="../../resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-      <script type="text/javascript">
-        function avance_pagina($pag) {//para cuando hayan varios registros
-          //es el boton de pag 2,3,4,etc;
-          document.getElementById("pag").value = $pag;
-          document.form1.btnBuscar.click();//este es el nombre del formulario...
-          document.getElementById("pag").value = 1;
-        }
-        $(document).ready(function(e) {
-          obtenerProducto();
-          obtenerPorciones();
-          function obtenerProducto() {
-            $.ajax({
-              type: "GET",
-              //url:"http://eguamans.esy.es/controller/SubcategoriasController.php",
-              url: "../../controller/productosController.php",
-              data: {
-                "accion": "listar",
-                "id_producto": $("#txtIdProducto").val()
-              },
-              success: function(e) {
-                if (e[0].estado === "ok") {
-                  if (e[0].campos.length > 0) {
-                    $.each(e[0].campos, function(key, value) {
-                      $("#pro_descripcion").html("\"" + value.pro_descripcion + "\"");
-                    });
-                  } else {
-                    window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
-                    window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
-                  }
+    </div>
+    <script src="../../resources/js/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="../../resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      function avance_pagina($pag) {//para cuando hayan varios registros
+        //es el boton de pag 2,3,4,etc;
+        document.getElementById("pag").value = $pag;
+        document.form1.btnBuscar.click();//este es el nombre del formulario...
+        document.getElementById("pag").value = 1;
+      }
+      $(document).ready(function(e) {
+        obtenerProducto();
+        obtenerPorciones();
+        function obtenerProducto() {
+          $.ajax({
+            type: "POST",
+            url: "../../controller/productosController.php",
+            data: {
+              "accion": "listar",
+              "id_producto": $("#txtIdProducto").val()
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                if (e[0].campos.length > 0) {
+                  $.each(e[0].campos, function(key, value) {
+                    $("#pro_descripcion").html("\"" + value.pro_descripcion + "\"");
+                  });
                 } else {
                   window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
                   window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
                 }
-              },
-              failure: function(e) {
-                window.alert("Error");
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
-            });
-          }
+            },
+            failure: function(e) {
+              window.alert("Error");
+            }
+          });
+        }
 
-          function obtenerPorciones() {
-            $.ajax({
-              type: "POST",
-              url: "../../controller/porcionesController.php",
-              data: {
-                'accion': 'listar',
-                'nombre': $("#txtNombre").val(),
-                'id_producto': $("#txtIdProducto").val(),
-                'pag': $("#pag").val()
-              },
-              success: function(e) {
-                if (e[0].estado === "ok") {
-                  if (e[0].campos.length > 0) {
-                    $(".lista").empty();
-                    $(".paginador").empty();
-                    var tabla = $("<table>", {
-                      id: 'tabla',
-                      class: 'table table-striped'
-                    });
-                    var thead = $("<thead>");
-                    var tr = $("<tr>");
-                    var th = $("<th>", {text: "Nro"});
-                    $(tr).append($(th));
-                    var th = $("<th>", {text: "Producto"});
-                    $(tr).append($(th));
-                    var th = $("<th>", {text: "Porcion"});
-                    $(tr).append($(th));
-                    var th = $("<th>", {text: "Unidad"});
-                    $(tr).append($(th));
-                    var th = $("<th>", {text: "Acciones"});
-                    $(tr).append($(th));
-
-                    $(thead).append($(tr));
-                    $(tabla).append($(thead));
-
-                    $.each(e[0].campos, function(key, value) {
-                      var tr = document.createElement("tr");
-                      var td = $("<td>", {
-                        text: value.id_porcion
-                      });
-                      $(tr).append($(td));
-                      var td = $("<td>", {
-                        text: value.inv_descripcion
-                      });
-                      $(tr).append($(td));
-                      var td = $("<td>", {
-                        text: value.porc_porcion
-                      });
-                      $(tr).append($(td));
-                      var td = $("<td>", {
-                        text: value.porc_unidad
-                      });
-                      $(tr).append($(td));
-                      var button = $("<a>", {
-                        href: "productosAdd.php?id_producto=" + value.id_producto,
-                        name: "btnEditar",
-                        id: "btnEditar",
-                        html: "Editar"
-                      });
-                      $(button).addClass("btn btn-success btn-xs");
-                      var btnDelete = $("<a>", {
-                        href: "#",
-                        name: "btnDelete",
-                        id: "btnDelete" + value.id_producto,
-                        html: "Eliminar",
-                        click: function() {
-                          var rs = window.confirm("Desea Eliminar esta Producto?");
-                          if (rs === true) {
-                            eliminar(value.id_producto);
-                          }
-                        }
-                      });
-                      $(btnDelete).addClass("btn btn-danger btn-xs");
-
-
-                      var td = $("<td>", {
-                        text: ""
-                      });
-                      $(td).append($(button));
-                      $(td).append("&nbsp;&nbsp;&nbsp;");
-                      $(td).append($(btnDelete));
-                      $(tr).append($(td));
-
-                      $(tabla).append(tr);
-                    });
-                    $(".lista").append($(tabla));
-                    $(".paginador").append(e[0].paginador);
-                  } else {
-                    $(".lista").html("No existen Productos");
-                  }
-
-                } else if (e[0].estado === "no") {
+        function obtenerPorciones() {
+          $.ajax({
+            type: "POST",
+            url: "../../controller/porcionesController.php",
+            data: {
+              'accion': 'listar',
+              'nombre': $("#txtNombre").val(),
+              'id_producto': $("#txtIdProducto").val(),
+              'pag': $("#pag").val()
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                if (e[0].campos.length > 0) {
                   $(".lista").empty();
                   $(".paginador").empty();
-                  $(".lista").append(e[0].mensaje);
+                  var tabla = $("<table>", {
+                    id: 'tabla',
+                    class: 'table table-striped'
+                  });
+                  var thead = $("<thead>");
+                  var tr = $("<tr>");
+                  var th = $("<th>", {text: "Nro"});
+                  $(tr).append($(th));
+                  var th = $("<th>", {text: "Producto"});
+                  $(tr).append($(th));
+                  var th = $("<th>", {text: "Porcion"});
+                  $(tr).append($(th));
+                  var th = $("<th>", {text: "Unidad"});
+                  $(tr).append($(th));
+                  var th = $("<th>", {text: "Acciones"});
+                  $(tr).append($(th));
+
+                  $(thead).append($(tr));
+                  $(tabla).append($(thead));
+
+                  $.each(e[0].campos, function(key, value) {
+                    var tr = document.createElement("tr");
+                    var td = $("<td>", {
+                      text: value.id_porcion
+                    });
+                    $(tr).append($(td));
+                    var td = $("<td>", {
+                      text: value.inv_descripcion
+                    });
+                    $(tr).append($(td));
+                    var td = $("<td>", {
+                      text: value.porc_porcion
+                    });
+                    $(tr).append($(td));
+                    var td = $("<td>", {
+                      text: value.porc_unidad
+                    });
+                    $(tr).append($(td));
+                    var button = $("<a>", {
+                      href: "porcionesAdd.php?id_producto=" + value.id_producto + "&id_porcion=" + value.id_porcion,
+                      name: "btnEditar",
+                      id: "btnEditar",
+                      html: "Editar"
+                    });
+                    $(button).addClass("btn btn-success btn-xs");
+                    var btnDelete = $("<a>", {
+                      href: "#",
+                      name: "btnDelete",
+                      id: "btnDelete" + value.id_porcion,
+                      html: "Eliminar",
+                      click: function() {
+                        var rs = window.confirm("Desea Eliminar esta Producto?");
+                        if (rs === true) {
+                          eliminar(value.id_porcion);
+                        }
+                      }
+                    });
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
+
+
+                    var td = $("<td>", {
+                      text: ""
+                    });
+                    $(td).append($(button));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
+                    $(td).append($(btnDelete));
+                    $(tr).append($(td));
+
+                    $(tabla).append(tr);
+                  });
+                  $(".lista").append($(tabla));
                   $(".paginador").append(e[0].paginador);
                 } else {
-                  window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
-                  window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
+                  $(".lista").html("No existen Productos");
                 }
-              },
-              failure: function(e) {
-                window.alert();
+
+              } else if (e[0].estado === "no") {
+                $(".lista").empty();
+                $(".paginador").empty();
+                $(".lista").append(e[0].mensaje);
+                $(".paginador").append(e[0].paginador);
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
-            });
-          }
+            },
+            failure: function(e) {
+              window.alert();
+            }
+          });
+        }
 
-          function eliminar(id_porcion) {
-            $.ajax({
-              type: "POST",
-              url: "../../controller/porcionesController.php",
-              data: {
-                'accion': 'eliminar',
-                'id_porcion': id_porcion
-              },
-              success: function(e) {
-                if (e[0].estado === "ok") {
-                  window.alert(e[0].mensaje);
-                  window.location = "porcionesDetalleList.php";
-                } else {
-                  window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
-                  window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
-                }
-              },
-              failure: function(e) {
-                window.alert();
+        function eliminar(id_porcion) {
+          $.ajax({
+            type: "POST",
+            url: "../../controller/porcionesController.php",
+            data: {
+              'accion': 'eliminar',
+              'id_porcion': id_porcion
+            },
+            success: function(e) {
+              if (e[0].estado === "ok") {
+                window.alert(e[0].mensaje);
+                window.location = "porcionesDetalleList.php?id_producto=" + $("#txtIdProducto").val();
+              } else {
+                window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
+                window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
               }
-            });
-          }
-
-          $("#btnBuscar").on("click", function() {
-            listar();
+            },
+            failure: function(e) {
+              window.alert();
+            }
           });
+        }
 
-          $("#btnAgregar").on("click", function() {
-            window.location = "porcionesAdd.php?id_producto="+$("#txtIdProducto").val();
-          });
+        $("#btnBuscar").on("click", function() {
+          listar();
         });
-      </script>
 
-    </div>
+        $("#btnAgregar").on("click", function() {
+          window.location = "porcionesAdd.php?id_producto=" + $("#txtIdProducto").val();
+        });
+      });
+    </script>
   </body>
 </html>

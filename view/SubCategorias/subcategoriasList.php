@@ -100,27 +100,30 @@ require_once("../../secureadmin.php");
                     var button = $("<a>", {
                       href: "subcategoriasAdd.php?id_subcategoria=" + value.id_subcategoria,
                       name: "btnEditar",
-                      id: "btnEditar"
+                      id: "btnEditar",
+                      html:"Editar"
                     });
-                    $(button).addClass("btn btn-edit");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
+                      html:"Eliminar",
                       id: "btnDelete" + value.id_subcategoria,
                       click: function() {
                         var rs = window.confirm("Desea Eliminar este SubCategoría?");
-                        if (rs == true) {
+                        if (rs === true) {
                           eliminar(value.id_subcategoria);
                         }
                       }
                     });
 
 
-                    $(btnDelete).addClass("btn btn-delete");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var td = $("<td>", {
                       text: ""
                     });
                     $(td).append($(button));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
                     $(td).append($(btnDelete));
                     $(tr).append($(td));
 

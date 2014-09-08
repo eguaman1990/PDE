@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Documento sin título</title>
+  <link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type="text/javascript">
+	  var sMensaje = "Botón derecho deshabilitado. \n Todos los derechos reservados  ©";
+		function anularBotonDerecho(e) {
+			if (navigator.appName =="Netscape" && (e.which == 3 || e.which ==    2)){
+				alert(sMensaje);       
+				return false;     
+			} else if (navigator.appName == "Microsoft Internet Explorer"          && (event.button    == 2)) {
+				alert(sMensaje);     
+			}   
+		}
+		document.onmousedown=anularBotonDerecho;   
+		document.oncontextmenu=new Function("return false");
+</script>
+  </script>
+</head>
+<body>
+<div id="content">
+	<div id="header">
+  	<img src="images/logo.png" width="680" height="319" alt="Logo">
+  </div>
+  <div id="menu">
+		<div id="inicio"><a href="#" title="inicio"></a></div>
+    <div id="festival"><a href="#" title="festival" ></a></div>
+    <div id="gastronomia"><a href="#" title="gastronomia"></a></div>
+    <div id="artistas"><a href="#" title="artistas"></a></div>
+    <div id="galeria"><a href="#" title="galeria"></a></div>
+    <div id="mapa"><a href="#" title="mapa"></a></div>
+  </div>
+  <div id="contenido">
+  
+  </div>
+</div>
+</body>
+</html>

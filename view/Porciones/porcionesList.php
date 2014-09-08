@@ -20,7 +20,7 @@ require_once("../../secureadmin.php");
     <? require_once("../../header.php"); ?>
     <div class="container">
       <div class="page-header">
-        <h1>Porciones</h1>
+        <h1>Listado de Productos</h1>
       </div>
       <form id="form1" name="form1" method="post" action="" class="form-horizontal" role="form">
 
@@ -30,7 +30,7 @@ require_once("../../secureadmin.php");
             <input type="text" name="txtNombre" id="txtNombre"  placeholder="Busqueda por Nombre de Producto" class="form-control"/>
           </div>
           <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" class="btn btn-primary" />
-          <input type="button" name="btnAgregar" id="btnAgregar" value="Agregar" class="btn btn-warning" />
+          
         </div>
       </form>
 
@@ -106,7 +106,7 @@ require_once("../../secureadmin.php");
                       id: "btnEditar",
                       html: "Editar"
                     });
-                    $(button).addClass("btn btn-success");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
@@ -114,27 +114,27 @@ require_once("../../secureadmin.php");
                       html: "Eliminar",
                       click: function() {
                         var rs = window.confirm("Desea Eliminar esta Producto?");
-                        if (rs == true) {
+                        if (rs === true) {
                           eliminar(value.id_producto);
                         }
                       }
                     });
-                    $(btnDelete).addClass("btn btn-danger");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var btnAddPorcion = $("<a>",{
                       href: "porcionesDetalleList.php?id_producto=" + value.id_producto,
                       name:"btnAddPorcion",
                       id:"btnAddPorcion",
                       html:"Ver Porciones"
                     });
-                    $(btnAddPorcion).addClass("btn btn-primary");
+                    $(btnAddPorcion).addClass("btn btn-success btn-xs");
                     
                     var td = $("<td>", {
                       text: ""
                     });
-                    $(td).append($(button));
-                    $(td).append("&nbsp;&nbsp;&nbsp;")
-                    $(td).append($(btnDelete));
-                    $(td).append("&nbsp;&nbsp;&nbsp;")
+                    //$(td).append($(button));
+                    //$(td).append("&nbsp;&nbsp;&nbsp;");
+                    //$(td).append($(btnDelete));
+                    //$(td).append("&nbsp;&nbsp;&nbsp;");
                     $(td).append($(btnAddPorcion));
                     $(tr).append($(td));
 
@@ -143,7 +143,7 @@ require_once("../../secureadmin.php");
                   $(".lista").append($(tabla));
                   $(".paginador").append(e[0].paginador);
                 } else {
-                  $(".lista").html("No existen Productos")
+                  $(".lista").html("No existen Productos");
                 }
 
               } else if (e[0].estado === "no") {
@@ -172,7 +172,7 @@ require_once("../../secureadmin.php");
                       'id_producto': id_producto
                     },
             success: function(e) {
-              if (e[0].estado == "ok") {
+              if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
                 window.location = "productosList.php";
               } else {

@@ -210,10 +210,12 @@ class BD {
 					$linea='$stmt'."->bindValue(':".$key."', '".$value."');";
 				}else{
 				    $linea=$linea.'$stmt'."->bindValue(':".$key."', '".$value."');";
+            
 				}
 			}
 						
 			$sql="update ".$tabla." set ".$values." where ".$strwhere;
+      
 			$stmt = $this->_db->prepare($sql);
 			eval($linea);
 			$stmt->execute();

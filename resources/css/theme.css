@@ -20,3 +20,14 @@ label.error{
     font-style: italic; 
 		display:none;
 }
+.negrita{
+  font-weight: bold;
+}
+span.derecha{
+  display: block;
+  float: right;
+}
+.descripcion{
+  font-style: italic;
+  font-size: 11px;
+}
