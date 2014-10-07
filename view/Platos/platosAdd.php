@@ -38,15 +38,27 @@ if (isset($_REQUEST["id_producto"])) {
             </div>
           </div>
           <div class="form-group">
+            <label class="col-md-4 control-label" for="txtNombre">Nombre</label>
+            <div class="col-md-4"> 
+              <input type="text" name="txtNombre" id="txtNombre" class="form-control" required data-msg-required="Ingrese el Nombre del Plato" placeholder="Nombre del Plato" />
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-4 control-label" for="txtDescripcion">Descripción</label>
             <div class="col-md-4"> 
-              <input type="text" name="txtDescripcion" id="txtDescripcion" class="form-control" required data-msg-required="Ingrese el Nombre del Plato" placeholder="Nombre del Plato" />
+              <input type="text" name="txtDescripcion" id="txtDescripcion" class="form-control" required data-msg-required="Ingrese la Descripción del Plato" placeholder="Descripción del Plato" />
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-4 control-label" for="txtPrecioUnitario">Precio Unitario</label>
             <div class="col-md-4"> 
-              <input type="text" name="txtPrecioUnitario" id="txtPrecioUnitario" class="form-control" required data-msg-required="Ingrese el Precio del Procuto" placeholder="Precio Unitario" />
+              <input type="text" name="txtPrecioUnitario" id="txtPrecioUnitario" class="form-control" required data-msg-required="Ingrese el Precio del Producto" placeholder="Precio Unitario" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="txtPorciones">Porciones por Plato</label>
+            <div class="col-md-4"> 
+              <input type="text" name="txtPorciones" id="txtPorciones" class="form-control" required data-msg-required="Ingrese la Porción" placeholder="Cantidad de Porciones" />
             </div>
           </div>
           <div class="form-group">
@@ -105,16 +117,16 @@ if (isset($_REQUEST["id_producto"])) {
         function agregar() {
           $.ajax({
             type: "GET",
-            //url:"http://eguamans.esy.es/controller/productosController.php",
             url: "../../controller/productosController.php",
-            data:
-                    {
-                      'accion': 'agregar',
-                      'id_producto': $("#txtIdPlato").val(),
-                      'descripcion': $("#txtDescripcion").val(),
-                      'id_subcategoria': $("#txtSubCategoria").val(),
-                      'precio_unitario': $("#txtPrecioUnitario").val()
-                    },
+            data: {
+              'accion': 'agregar',
+              'id_producto': $("#txtIdPlato").val(),
+              'nombre': $("#txtNombre").val(),
+              'descripcion': $("#txtDescripcion").val(),
+              'id_subcategoria': $("#txtSubCategoria").val(),
+              'precio_unitario': $("#txtPrecioUnitario").val(),
+              'porciones':$("#txtPorciones").val()
+            },
             success: function(e) {
               if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);

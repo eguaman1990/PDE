@@ -49,6 +49,18 @@ if(isset($_REQUEST["precio_unitario"])){
 	$precio_unitario="";
 }//precio_unitario
 
+if(isset($_REQUEST["nombre"])){
+	$nombre=$_REQUEST["nombre"];
+}else{
+	$nombre="";
+}//nombre
+
+if(isset($_REQUEST["porciones"])){
+	$porciones =$_REQUEST["porciones"];
+}else{
+	$porciones="";
+}//porciones
+
 ####################################################################################################
 //****************************	INICIO DEL LISTAR	PRODUCTO************************************************//
 if ($accion=="listar"){
@@ -129,7 +141,7 @@ if ($accion=="agregar"){
 	if($res==0){
 		/**	PRODUCTO NO EXISTE**/
 		$dep="entro a ingresar";
-		$resultado=$objProducto->crear($id_subcategoria, $descripcion,$precio_unitario);
+		$resultado=$objProducto->crear($id_subcategoria, $descripcion,$precio_unitario,$nombre,$porciones);
 		if($objProducto->myException->getEstado()==0){
 			$estado="ok";
 			$mensaje="Producto Ingresado Exitosamente";
@@ -140,7 +152,7 @@ if ($accion=="agregar"){
 	}else{
 		$dep="entro a actualizar";
 		/** PRODUCTO EXISTE**/
-		$resultado=$objProducto->actualizar($id_producto,$id_subcategoria,$descripcion,$precio_unitario);
+		$resultado=$objProducto->actualizar($id_producto,$id_subcategoria,$descripcion,$precio_unitario,$nombre,$porciones);
 		if($objProducto->myException->getEstado()==0){
 			$estado="ok";
 			$mensaje="Producto Actualizado Exitosamente";
