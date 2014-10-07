@@ -58,7 +58,7 @@ if (isset($_REQUEST["id_producto"])) {
           <div class="form-group">
             <label class="col-md-4 control-label" for="txtPorciones">Porciones por Plato</label>
             <div class="col-md-4"> 
-              <input type="text" name="txtPorciones" id="txtPorciones" class="form-control" required data-msg-required="Ingrese la Porción" placeholder="Cantidad de Porciones" />
+              <input type="number" name="txtPorciones" id="txtPorciones" class="form-control" required data-msg-required="Ingrese la Porción" placeholder="Cantidad de Porciones" />
             </div>
           </div>
           <div class="form-group">
