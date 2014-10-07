@@ -1,4 +1,4 @@
-<?
+<?php
 ////////////////////////////////////////////////////
 // Acceso - Acceso class
 //
@@ -142,7 +142,8 @@ class Acceso
 		try{
 			if ($this->myException->getEstado()==0){
 				#verifico que no existan ese Acceso
-				$strsql="select id_acceso from acceso where id_acceso=? AND ISNULL(temporizador);";
+				$strsql="select id_acceso from acceso where id_acceso=? AND "
+                . " (ISNULL(temporizador) or DATEDIFF(NOW(),TEMPORIZADOR)=0);";
 				$condicion=array($this->getIdAcceso());
 				$res=$this->bd->ejecutar($strsql,$condicion);
 				if ($this->bd->myException->getEstado()==0){
@@ -251,6 +252,42 @@ class Acceso
 	}//fin de la funcio buscar
 	/***********************	FIN DE LA FUNCION BUSCAR	************************************/
 	/////////////////////////////////////////////////////////////////////////////////////////////
+  public function validaSession($idAcceso){
+		$this->setIdAcceso($idAcceso);
+		try{
+			if ($this->myException->getEstado()==0){
+				#verifico que no existan ese Acceso
+				$strsql="SELECT ID_ACCESO FROM acceso WHERE id_acceso=? AND DATEDIFF(NOW(),TEMPORIZADOR)=0;";
+				$condicion=array($this->getIdAcceso());
+				$res=$this->bd->ejecutar($strsql,$condicion);
+				if ($this->bd->myException->getEstado()==0){
+					if ($rs=$res->fetch()){
+						return 1;//devuelve 1 si encuentra
+					}else{
+						return 0;//devuelve 0 si no encuentra anda
+					}//fin del if que me permite verificar si encontro datos o no
+				}else{
+					$this->myException->setEstado(1);
+					foreach($this->bd->myException->getMensaje() as $er){
+						$this->myException->addError(array('user'=>$er['user'],'admin'=>$er['admin']));
+					}
+					return 0;
+				}//fin del if que me contAccesoa que no se haya caido la consulta
+			}else{
+				return 0;
+			}//fin del if que me contAccesoa que no se haya caido l coneccion
+		}catch(Exception $e){
+			$this->myException->setEstado(1);
+			$error=array(
+			   'user'=>'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+				'admin'=>$e->getMessage()."<br>codigo: ".$e->getCode()."<br>linea: ".$e->getLine()."<br>archivo: ".$e->getFile()
+			);
+			$this->myException->addError($error);
+		}//fin del try catch
+	}//fin de la funcio buscar
+	/***********************	FIN DE LA FUNCION BUSCAR	************************************/
+	/////////////////////////////////////////////////////////////////////////////////////////////
+  
 	/***********************	INICIO DE LA FUNCION LISTAR		********************************/
 	/**
 		* Funcion Listar que me permite listar todos loss parametros de mi consulta

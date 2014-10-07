@@ -40,4 +40,24 @@
 <file name="Acceso.class.php" server="C:/Users/Edwin Guaman/Dropbox/NuevoPDE/" local="130452800183208694" remote="130452800180000000" Dst="1" />
 <file name="class.phpmailer.php" server="C:/Users/Edwin Guaman/Dropbox/NuevoPDE/" local="129671580840000000" remote="129671580840000000" Dst="1" />
 <file name="class.smtp.php" server="C:/Users/Edwin Guaman/Dropbox/NuevoPDE/" local="129671580840000000" remote="129671580840000000" Dst="1" />
+<file name="Acceso.class.php" server="ftp.eguaman.cl/web/" local="130489553045405022" remote="130513407600000000" Dst="1" />
+<file name="BD.class.php" server="ftp.eguaman.cl/web/" local="130485127191253477" remote="130513407600000000" Dst="1" />
+<file name="Cargo.class.php" server="ftp.eguaman.cl/web/" local="130477681044512781" remote="130513407600000000" Dst="1" />
+<file name="Categoria.class.php" server="ftp.eguaman.cl/web/" local="130477681001539146" remote="130513407600000000" Dst="1" />
+<file name="class.phpmailer.php" server="ftp.eguaman.cl/web/" local="129671580840000000" remote="130513407600000000" Dst="1" />
+<file name="class.smtp.php" server="ftp.eguaman.cl/web/" local="129671580840000000" remote="130513407600000000" Dst="1" />
+<file name="Configuracion.class.php" server="ftp.eguaman.cl/web/" local="130513432952437063" remote="130513432800000000" Dst="1" />
+<file name="demo.class.php" server="ftp.eguaman.cl/web/" local="130436300520000000" remote="130513407600000000" Dst="1" />
+<file name="Inventario.class.php" server="ftp.eguaman.cl/web/" local="130485143148758349" remote="130513407600000000" Dst="1" />
+<file name="Mesa.class.php" server="ftp.eguaman.cl/web/" local="130477682949569341" remote="130513407600000000" Dst="1" />
+<file name="MyException.class.php" server="ftp.eguaman.cl/web/" local="130308406930912089" remote="130513407600000000" Dst="1" />
+<file name="Pedido.class.php" server="ftp.eguaman.cl/web/" local="130498501451577765" remote="130513407600000000" Dst="1" />
+<file name="Porcion.class.php" server="ftp.eguaman.cl/web/" local="130483744783038546" remote="130513407600000000" Dst="1" />
+<file name="Producto.class.php" server="ftp.eguaman.cl/web/" local="130496638812335678" remote="130513407600000000" Dst="1" />
+<file name="Proveedor.class.php" server="ftp.eguaman.cl/web/" local="130484666356389768" remote="130513407600000000" Dst="1" />
+<file name="Recepcion.class.php" server="ftp.eguaman.cl/web/" local="130485119434599478" remote="130513407600000000" Dst="1" />
+<file name="Solicitudes.class.php" server="ftp.eguaman.cl/web/" local="130485083223775601" remote="130513407600000000" Dst="1" />
+<file name="Subcategoria.class.php" server="ftp.eguaman.cl/web/" local="130476120864101881" remote="130513407600000000" Dst="1" />
+<file name="Usuario.class.php" server="ftp.eguaman.cl/web/" local="130494229402505991" remote="130513407600000000" Dst="1" />
+<file name="Utilidades.class.php" server="ftp.eguaman.cl/web/" local="130483806840163821" remote="130513407600000000" Dst="1" />
 </dwsync>

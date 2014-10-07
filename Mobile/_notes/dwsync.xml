@@ -11,4 +11,8 @@
 <file name="index.html" server="ftp.eguaman.cl//web/" local="130436649669350140" remote="130452882600000000" Dst="1" />
 <file name="login.html" server="ftp.eguaman.cl//web/" local="130408703430000000" remote="130452882600000000" Dst="1" />
 <file name="menu.html" server="ftp.eguaman.cl//web/" local="130411268340445873" remote="130452882600000000" Dst="1" />
+<file name="dialog.html" server="ftp.eguaman.cl/web/" local="130411262008016345" remote="130513407600000000" Dst="1" />
+<file name="index.html" server="ftp.eguaman.cl/web/" local="130436649669350140" remote="130513407600000000" Dst="1" />
+<file name="login.html" server="ftp.eguaman.cl/web/" local="130408703430000000" remote="130513407600000000" Dst="1" />
+<file name="menu.html" server="ftp.eguaman.cl/web/" local="130411268340445873" remote="130513407600000000" Dst="1" />
 </dwsync>

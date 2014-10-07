@@ -206,10 +206,10 @@ class Porcion {
       /*       * *	aki pregunto si se cumplieron todas las validaciones de los SET	** */
       if ($this->myException->getEstado() == 0) {
         $condicion = array("id_porcion" => $this->getIdPorcion());
-        $parametros = array("id_producto" => $this->getIdProducto(), "id_inventario" > $this->getIdInventario(),
+        $parametros = array("id_producto" => $this->getIdProducto(), "id_inventario" => $this->getIdInventario(),
             "porc_porcion" => $this->getPorcion(),"porc_unidad"=>$this->getUnidad());
 
-        $rs1 = $this->bd->update('Porciones', $parametros, $condicion);
+        $rs1 = $this->bd->update('porciones', $parametros, $condicion);
         if ($this->bd->myException->getEstado() == 0) {
           return 1;
         } else {
@@ -244,7 +244,7 @@ class Porcion {
     try {
       if ($this->myException->getEstado() == 0) {
         #verifico que no existan ese Porcion
-        $strsql = "select id_porcion from Porciones where id_porcion=?";
+        $strsql = "select id_porcion from porciones where id_porcion=?";
         $condicion = array($this->getIdPorcion());
         $res = $this->bd->ejecutar($strsql, $condicion);
         if ($this->bd->myException->getEstado() == 0) {
@@ -369,18 +369,14 @@ class Porcion {
       $this->setIdPorcion($id);
       /*       * *	aki pregunto si se cumplieron todas las validaciones de los SET	** */
       if ($this->myException->getEstado() == 0) {
-        $condicion = array("ID_PRODUCTO" => $this->getIdPorcion());
-        $parametros = array(
-            "PRO_ACTIVO" => "NO"
-        );
-
-        $rs1 = $this->bd->update('productos', $parametros, $condicion);
+        $condicion = array("id_porcion" => $this->getIdPorcion());
+        $rs1 = $this->bd->delete('porciones',$condicion);
         if ($this->bd->myException->getEstado() == 0) {
           return 1;
         } else {
           $this->myException->setEstado(1);
           foreach ($this->bd->myException->getMensaje() as $er) {
-            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO ACTUALIZAR " . $this->__toString() . " " . $parametros));
+            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO ELIMINAR " . $this->__toString() . " " . $condicion));
           }//fin del for each que me informa del error al realizar en insert
         }//fin del if que verifica que la coneccion no se pierda
       }

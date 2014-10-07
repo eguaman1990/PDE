@@ -107,7 +107,7 @@ require_once("../../secureadmin.php");
                       id: "btnEditar",
                       html: "Editar"
                     });
-                    $(button).addClass("btn btn-success");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
@@ -122,7 +122,7 @@ require_once("../../secureadmin.php");
                     });
 
 
-                    $(btnDelete).addClass("btn btn-danger");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var td = $("<td>", {
                       text: ""
                     });

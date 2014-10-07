@@ -57,4 +57,23 @@
 <file name="sql_PDE_version1.sql" server="ftp.eguaman.cl//web/" local="130268697152460442" remote="130442368200000000" Dst="1" />
 <file name="PDM_Usuario.pdm" server="ftp.eguaman.cl//web/" local="130348147420314370" remote="130442368200000000" Dst="1" />
 <file name="sql_PDE_version3.sql" server="ftp.eguaman.cl//web/" local="130415645260943205" remote="130442368200000000" Dst="1" />
+<file name="CLASS_fce_gine.oob" server="ftp.eguaman.cl/web/" local="130371680220758602" remote="130513407600000000" Dst="1" />
+<file name="CLASS_fce_gine.oom" server="ftp.eguaman.cl/web/" local="130374105876220923" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V1.ldb" server="ftp.eguaman.cl/web/" local="130251436194709233" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V1.ldm" server="ftp.eguaman.cl/web/" local="130268687943089372" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V2.ldb" server="ftp.eguaman.cl/web/" local="130365654174241140" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V2.ldm" server="ftp.eguaman.cl/web/" local="130415640183687035" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V3.ldb" server="ftp.eguaman.cl/web/" local="130415640427002046" remote="130513407600000000" Dst="1" />
+<file name="PDE_V3.sql" server="ftp.eguaman.cl/web/" local="130415646805258786" remote="130513407600000000" Dst="1" />
+<file name="LDM_PDE_V3.ldm" server="ftp.eguaman.cl/web/" local="130415654246911930" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V1.pdb" server="ftp.eguaman.cl/web/" local="130268687952529900" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V1.pdm" server="ftp.eguaman.cl/web/" local="130286909232998598" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V2.pdb" server="ftp.eguaman.cl/web/" local="130412876545128782" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V2.pdm" server="ftp.eguaman.cl/web/" local="130415640184557614" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V3.pdb" server="ftp.eguaman.cl/web/" local="130415640427902647" remote="130513408200000000" Dst="1" />
+<file name="PDM_Usuario.ldm" server="ftp.eguaman.cl/web/" local="130348147420941468" remote="130513408200000000" Dst="1" />
+<file name="PDM_PDE_V3.pdm" server="ftp.eguaman.cl/web/" local="130415654245698298" remote="130513408200000000" Dst="1" />
+<file name="sql_PDE_version1.sql" server="ftp.eguaman.cl/web/" local="130268697152460442" remote="130513408200000000" Dst="1" />
+<file name="PDM_Usuario.pdm" server="ftp.eguaman.cl/web/" local="130348147420314370" remote="130513408200000000" Dst="1" />
+<file name="sql_PDE_version3.sql" server="ftp.eguaman.cl/web/" local="130415645260943205" remote="130513408200000000" Dst="1" />
 </dwsync>

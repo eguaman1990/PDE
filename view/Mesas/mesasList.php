@@ -98,13 +98,15 @@ require_once("../../secureadmin.php");
                     var button = $("<a>", {
                       href: "mesasAdd.php?id_mesa=" + value.id_mesa,
                       name: "btnEditar",
-                      id: "btnEditar"
+                      id: "btnEditar",
+                      html:"Editar"
                     });
-                    $(button).addClass("btn btn-edit");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
                       id: "btnDelete" + value.id_mesa,
+                      html:"Eliminar",
                       click: function() {
                         var rs = window.confirm("Desea Eliminar esta Mesa?");
                         if (rs === true) {
@@ -114,11 +116,12 @@ require_once("../../secureadmin.php");
                     });
 
 
-                    $(btnDelete).addClass("btn btn-delete");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var td = $("<td>", {
                       text: ""
                     });
                     $(td).append($(button));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
                     $(td).append($(btnDelete));
                     $(tr).append($(td));
 

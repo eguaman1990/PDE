@@ -1,11 +1,11 @@
 <?php
 /**
   * @package
-  * Proyecto : Mutualdoc
+  * Proyecto : PDE
   * Archivo  : class/Utilidades.class.php
   * @link
   * @copyright
-  * @autor   : Carlos Jara Leyton
+  * @autor   : Edwin Guaman
   * @since fecha: 09/12/2011.
   * version: version 1.0.
   * Descripcion:  Esta es una clase utilizaria que permite a sistema 
@@ -27,12 +27,12 @@ class Utilidades{
 		}else{
 			$lngAuxPag=$PageCurrent - 1;	
 		}
-		$ret = '<table class="paginador"><tr>';
+		$ret = '<table align="center" class="paginador"><tr>';
 		if ($PageCurrent > 1){
 			// Agregado boton para ir a la primera pagina
-			$ret .= '<td><a  href="#" onclick="avance_pagina(1)" title="Primera" class="btn btn-xs btn btn-info">Primera</a></td>';
+			$ret .= '<td><a  href="#" onclick="avance_pagina(1)" title="Primera" class="btn btn-xs btn btn-info">Primera</a></td> <td>&nbsp;&nbsp;</td>';
 			
-			$ret .= '<td><a href="#"  onclick="avance_pagina('.($PageCurrent - 1).')"  title="Anterior" class="btn btn-xs btn btn-info">Anterior</a></td>';			
+			$ret .= '<td><a href="#"  onclick="avance_pagina('.($PageCurrent - 1).')"  title="Anterior" class="btn btn-xs btn btn-info">Anterior</a></td><td>&nbsp;&nbsp;</td>';			
 		}
 		
 		for($i = 1 + $lngAuxPag; $i <= Configuracion::$MAXPAGESPERPAGER + $lngAuxPag; $i++){
@@ -43,14 +43,14 @@ class Utilidades{
 					$class_pagina="";
 				}
 				$ret .= '<td id="'.$class_pagina.'"  width="10" height="20" align="center" valign="middle">';
-				$ret .= '<a href="#" onclick="javascript:avance_pagina('.$i.');" class="btn btn-xs btn btn-info'.$class_pagina.'">' . $i . '</a></td>';
+				$ret .= '<a href="#" onclick="javascript:avance_pagina('.$i.');" class="btn btn-xs btn btn-info'.$class_pagina.'">' . $i . '</a></td> <td>&nbsp;&nbsp;</td>';
 			}
 		}
 		if ($PageCurrent < $PageCount){
-			$ret .= '<td><a  href="#" onclick="avance_pagina('.($PageCurrent + 1).')" class="btn btn-xs btn btn-info">Siguiente</a></td>';
+			$ret .= '<td><a  href="#" onclick="avance_pagina('.($PageCurrent + 1).')" class="btn btn-xs btn btn-info">Siguiente</a></td><td>&nbsp;&nbsp;</td>';
 			
 			// Agregado boton para ir a la ultima pagina
-			$ret .= '<td><a  href="#" onclick="avance_pagina('.($PageCount).')" class="btn btn-xs btn btn-info">&Uacute;ltima</a></td>';
+			$ret .= '<td><a  href="#" onclick="avance_pagina('.($PageCount).')" class="btn btn-xs btn btn-info">&Uacute;ltima</a></td> <td>&nbsp;&nbsp;</td>';
 		}
 		$ret .= '</tr> </table>';
 		return $ret;

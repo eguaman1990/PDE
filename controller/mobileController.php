@@ -24,6 +24,7 @@ require_once ("../modelo/Acceso.class.php");
 require_once ("../modelo/Categoria.class.php");
 require_once ("../modelo/Subcategoria.class.php");
 require_once ("../modelo/Producto.class.php");
+require_once ("../modelo/Pedido.class.php");
 //****************************	FIN CLASES REQUERIDAS		******************************************//
 ####################################################################################################
 //****************************	INICIO VARIABLES GLOBALES	****************************************//
@@ -68,6 +69,12 @@ if(isset($_REQUEST["id_categoria"])){
 	$id_categoria="";
 }//id_categoria
 
+if(isset($_REQUEST["id_subcategoria"])){
+	$id_subcategoria=$_REQUEST["id_subcategoria"];
+}else{
+	$id_subcategoria="";
+}//id_subcategoria
+
 if(isset($_REQUEST["porcion"])){
 	$porcion=$_REQUEST["porcion"];
 }else{
@@ -97,8 +104,10 @@ if ($accion=="login"){
 				$estado="ok";
 				$mensaje="el valor del id de mi acceso es: ".$_SESSION["id_acceso"];
 			}else{
+        
 				$estado="error";			 
 				$mensaje=$objAcceso->myException->getMensaje();
+        exit();
 			}
 
 		}else{
@@ -139,13 +148,32 @@ if ($accion=="cargaSubcategoria"){
 	if($id_categoria!=""){
 		$strsql =" and s.id_categoria='$id_categoria' ";
 	}
-	$campos=$objSubcategoria->listar("");
+	$campos=$objSubcategoria->listar($strsql);
 		if($objSubcategoria->myException->getEstado()==0){
 			$estado="ok";
 			$mensaje="Categorias Listadas Exitosamente";
 		}else{
 			$estado="error";
 			$mensaje=$objSubcategoria->myException->getMensaje();
+		}
+	$respuesta[]=array("estado"=>$estado, "mensaje"=>$mensaje,"campos"=>$campos);
+}
+//****************************	FIN DEL GRABAR PORCION		***********************************************//
+###########################################################################################################
+############################################################################################################
+//****************************	INICIO DEL AGREGAR PORCION		*********************************************//
+if ($accion=="cargaPlatos"){
+	$objProducto = new Producto();
+	if($id_subcategoria!=""){
+		$strsql =" and p.id_subcategoria='$id_subcategoria' ";
+	}
+	$campos=$objProducto->listar($strsql);
+		if($objProducto->myException->getEstado()==0){
+			$estado="ok";
+			$mensaje="Productos Listadas Exitosamente";
+		}else{
+			$estado="error";
+			$mensaje=$objProducto->myException->getMensaje();
 		}
 	$respuesta[]=array("estado"=>$estado, "mensaje"=>$mensaje,"campos"=>$campos);
 }
@@ -175,6 +203,30 @@ if($accion=="eliminar"){
 }
 //****************************	FIN DEL ELIMINAR PORCION		*********************************************//
 ###########################################################################################################
+###########################################################################################################
+#//****************************	INICIO ELIMINAR PORCION	***********************************************//
+if($accion=="ingresar_pedido"){
+  
+	$res=$objPorcion->buscar($id_porcion);
+	if($res!=0){
+		$dep="entro a eliminar";
+		$resultado=$objPorcion->eliminar($id_porcion);
+		if($objPorcion->myException->getEstado()==0){
+
+			$estado="ok";
+			$mensaje="Porcion Eliminado Exitosamente";
+		}else{
+
+			$estado="error";
+			$mensaje=$objPorcion->myException->getMensaje();
+		}
+	}else{
+		$estado="error";
+		$mensaje=$objPorcion->myException->getMensaje();
+	}
+	$respuesta[]=array("estado"=>$estado, "mensaje"=>$mensaje);
+}
+//****************************	FIN DEL ELIMINAR PORCION		*********************************************//
 ###########################################################################################################
 ###########################################################################################################
 ###########################################################################################################

@@ -97,27 +97,30 @@ require_once("../../secureadmin.php");
                     var button = $("<a>", {
                       href: "cargosAdd.php?id_cargo=" + value.id_cargo,
                       name: "btnEditar",
-                      id: "btnEditar"
+                      id: "btnEditar",
+                      html:"Editar"
                     });
-                    $(button).addClass("btn btn-edit");
+                    $(button).addClass("btn btn-success btn-xs");
                     var btnDelete = $("<a>", {
                       href: "#",
                       name: "btnDelete",
                       id: "btnDelete" + value.id_cargo,
+                      html:"Eliminar",
                       click: function() {
                         var rs = window.confirm("Desea Eliminar este Cargo?");
-                        if (rs == true) {
+                        if (rs === true) {
                           eliminar(value.id_cargo);
                         }
                       }
                     });
 
 
-                    $(btnDelete).addClass("btn btn-delete");
+                    $(btnDelete).addClass("btn btn-danger btn-xs");
                     var td = $("<td>", {
                       text: ""
                     });
                     $(td).append($(button));
+                    $(td).append("&nbsp;&nbsp;&nbsp;");
                     $(td).append($(btnDelete));
                     $(tr).append($(td));
 
