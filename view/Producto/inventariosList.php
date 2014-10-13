@@ -34,6 +34,7 @@ require_once("../../secureadmin.php");
       <div class="lista"></div>
       <div class="paginador"></div>
     </div>
+    <?php require_once '../../modal.php'; ?>
     <script src="../../resources/js/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
     <script src="../../resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -45,6 +46,7 @@ require_once("../../secureadmin.php");
         document.getElementById("pag").value = 1;
       }
       $(document).ready(function(e) {
+          
         listar();
         function listar() {
           $.ajax({

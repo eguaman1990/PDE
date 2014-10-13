@@ -14,7 +14,7 @@
 	  	  $i=$i+1;
 	  	  $archivo="../".$archivo;
 		  if ($i>5){
-			  die ("Error de Aplicación Interna no se puede encontrar archivo de seguridad.");
+			  die ("Error de Aplicaciï¿½n Interna no se puede encontrar archivo de seguridad.");
 			  exit;
 		  }
 	  }
@@ -22,9 +22,13 @@
       header("location: $archivo");
       exit;
   }else{
+      echo "entro";
 	  require_once("modelo/Usuario.class.php");
 	  $user=new Usuario();
+          
 	  $res=$user->buscar($_SESSION["id_usuario"]);
+          echo "hola";
+          exit();
 	  if ($res==0){
 	  	  $archivo="securearea.php";
 		  header("location: $archivo");

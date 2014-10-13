@@ -16,9 +16,9 @@
  * @author Andrés Guamán
  * @copyright 2012 - 2013 Andrés Guamán C.
 **/
-require_once "BD.class.php";
-require_once "MyException.class.php";
-require_once "Utilidades.class.php";
+require_once './BD.class.php';
+require_once './MyException.class.php';
+require_once "./Utilidades.class.php";
 class Usuario
 {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
