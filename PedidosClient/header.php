@@ -18,7 +18,7 @@ require_once "../modelo/Configuracion.class.php";
         <li><a href="<?=Configuracion::$RAIZ;?>view/Producto/inventariosList.php">Productos</a></li>
         <li><a href="<?=Configuracion::$RAIZ;?>view/Platos/platosList.php">Platos</a></li>
         <li><a href="<?=Configuracion::$RAIZ;?>view/Porciones/porcionesList.php">Porciones</a></li>
-        <li><a href="<?=Configuracion::$RAIZ;?>view/Pedidos/pedidosList.php">Pedidos de Clientes</a></li>
+        <li><a href="<?=Configuracion::$RAIZ;?>view/Pedidos/pedidosClientList.php">Pedidos de Clientes</a></li>
         <li><a href="<?=Configuracion::$RAIZ;?>view/SolicitudPedidos/solicitudesList.php">Solicitud Productos</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración <b class="caret"></b></a>

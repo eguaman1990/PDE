@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once './secureAdminClient.php';
+/*session_start();
+require_once './secureAdminClient.php';*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,18 +49,21 @@ require_once './secureAdminClient.php';
       $(document).ready(function() {
         cargaCategorias();
 
-        function ingresarPedido(id_producto) {
+        function ingresarPedido(id_producto,precio_unitario) {
           $.ajax({
             async: false,
             type: 'POST',
             url: "../controller/mobileController.php",
             data: {
               "accion": "ingresar_pedido",
-              "id_producto": id_producto
+              "id_producto": id_producto,
+              "cantidad":"1",
+              "precio_unitario":precio_unitario
             },
             success: function(data, textStatus, jqXHR) {
-              if(e[0].estado==="ok"){
-                
+              if(data[0].estado==="ok"){
+                window.alert("Pedido Ingresado Exitosamente");
+                window.location.href = "index.php";
               }else{
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
@@ -115,7 +118,7 @@ require_once './secureAdminClient.php';
 
                     var btnPedir = $("<button>", {
                       click: function() {
-                        ingresarPedido(value.producto);
+                        ingresarPedido(value.id_producto,value.pro_precio_unitario);
                       }
                     });
                     $(btnPedir).addClass("btn btn-primary");

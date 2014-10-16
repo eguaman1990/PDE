@@ -60,7 +60,6 @@ $_SESSION["incorrectlogin"] = 0;
                         'password': encdpwd($("#txtPassword").val())
                       },
               success: function(e) {
-								alert("hola");
                 if (e[0].estado === "ok") {
                   window.location = "index.php";
                 } else {

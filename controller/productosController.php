@@ -44,7 +44,10 @@ if(isset($_REQUEST["descripcion"])){
 }//descripcion
 
 if(isset($_REQUEST["precio_unitario"])){
-	$precio_unitario=$_REQUEST["precio_unitario"];
+	$precio_unitario =$_REQUEST["precio_unitario"];
+  $precio_unitario = str_replace("$","",$precio_unitario);
+  $precio_unitario = str_replace(".","",$precio_unitario);
+  $precio_unitario = str_replace(",","",$precio_unitario);
 }else{
 	$precio_unitario="";
 }//precio_unitario

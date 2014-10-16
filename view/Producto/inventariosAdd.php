@@ -29,9 +29,11 @@ if (isset($_REQUEST["id_inventario"])) {
         <fieldset>
           <legend><?= ($id_inventario == 0) ? " Agregar Producto" : "Editar Producto"; ?></legend>
 
-
-          <input class="form-control" type="text" name="txtIdInventario" id="txtIdInventario" required value="<?= $id_inventario; ?>">
-
+          <div class="hidden">
+               <label for="txtIdInventario">id_producto</label>
+              <input class="form-control" type="text" name="txtIdInventario" id="txtIdInventario" required value="<?= $id_inventario; ?>">
+          </div>
+          
           <div class="form-group">
             <label class="col-md-4 control-label" for="txtDescripcion">Descripción:</label>
             <div class="col-md-4">                

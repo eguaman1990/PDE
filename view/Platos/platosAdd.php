@@ -27,7 +27,8 @@ if (isset($_REQUEST["id_producto"])) {
         <fieldset>
           <legend><?= ($id_producto == 0) ? " Agregar Plato" : "Editar Plato"; ?></legend>
 
-          <div class="hidden"><label for="txtIdPlato">id_producto</label>
+          <div class="hidden">
+            <label for="txtIdPlato">id_producto</label>
             <input type="text" name="txtIdPlato" id="txtIdPlato" required value="<?= $id_producto; ?>">
           </div>
 
@@ -130,7 +131,7 @@ if (isset($_REQUEST["id_producto"])) {
             success: function(e) {
               if (e[0].estado === "ok") {
                 window.alert(e[0].mensaje);
-                window.location = "productosList.php";
+                window.location = "platosList.php";
               } else {
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);
                 window.alert("Mensaje de Administrador: " + e[0].mensaje[0].admin);
@@ -166,6 +167,8 @@ if (isset($_REQUEST["id_producto"])) {
                 if (e[0].campos.length > 0) {
                   $.each(e[0].campos, function(key, value) {
                     $("#txtDescripcion").val(value.pro_descripcion);
+                    $("#txtPorciones").val(value.pro_porciones);
+                    $("#txtNombre").val(value.pro_nombre);
                     $("#txtPrecioUnitario").val(value.pro_precio_unitario);
                     $("#txtSubCategoria option[value=" + value.id_subcategoria + "]").attr("selected", true);
                   });

@@ -70,12 +70,16 @@ require_once("../../secureadmin.php");
                   var thead = $("<thead>");
                   var tr = $("<tr>");
                   var th = $("<th>", {text: "Nro"});
-                  $(tr).append($(th));
+                  (tr).append($(th));
                   var th = $("<th>", {text: "Producto"});
+                  (tr).append($(th));
+                  var th = $("<th>", {text: "Desripción"});
                   $(tr).append($(th));
                   var th = $("<th>", {text: "Subcategoría"});
                   $(tr).append($(th));
                   var th = $("<th>", {text: "Precio"});
+                  $(tr).append($(th));
+                  var th = $("<th>", {text: "Porciones"});
                   $(tr).append($(th));
                   var th = $("<th>", {text: "Acciones"});
                   $(tr).append($(th));
@@ -90,6 +94,10 @@ require_once("../../secureadmin.php");
                     });
                     $(tr).append($(td));
                     var td = $("<td>", {
+                      text: value.pro_nombre
+                    });
+                    $(tr).append($(td));
+                    var td = $("<td>", {
                       text: value.pro_descripcion
                     });
                     $(tr).append($(td));
@@ -101,6 +109,11 @@ require_once("../../secureadmin.php");
                       text: value.pro_precio_unitario
                     });
                     $(tr).append($(td));
+                    var td = $("<td>", {
+                      text: value.pro_porciones+" Porciones"
+                    });
+                    $(tr).append($(td));
+                    
                     var button = $("<a>", {
                       href: "platosAdd.php?id_producto=" + value.id_producto,
                       name: "btnEditar",

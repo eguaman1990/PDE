@@ -5,7 +5,12 @@
  * 
  * @author Edwin_Guaman
  */
-class pedido {
+require_once "BD.class.php";
+require_once "MyException.class.php";
+require_once "Configuracion.class.php";
+require_once "Utilidades.class.php";
+
+class Pedido {
 
   private $idPedido;
   private $idEstadoPedido;
@@ -15,11 +20,16 @@ class pedido {
   private $idProducto;
   private $cantidad;
   private $preciounitario;
+  private $idAcceso;
   public $bd;
   public $myException;
 
   public function getIdPedido() {
     return $this->idPedido;
+  }
+
+  public function getIdAcceso() {
+    return $this->idAcceso;
   }
 
   public function getFechaIngreso() {
@@ -58,6 +68,19 @@ class pedido {
       $error = array(
           'user' => 'CAMPO ID_PEDIDO ESTA VACIO',
           'admin' => 'atributo id_pedido,function setIdPedido' . $this->__toString()
+      );
+      $this->myException->addError($error);
+    }//fin del if
+  }
+
+  public function setIdAcceso($idAcceso) {
+    if (strlen(trim($idAcceso)) != 0) {
+      $this->idAcceso = $idAcceso;
+    } else {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'CAMPO ID_ACCESO ESTA VACIO',
+          'admin' => 'atributo id_acceso,function setIdAcceso' . $this->__toString()
       );
       $this->myException->addError($error);
     }//fin del if
@@ -153,9 +176,171 @@ class pedido {
       $this->myException->addError($error);
     }
   }
-  
-  public function crear(){
-    
+
+  public function crear($fecha_ingreso, $id_acceso, $id_producto, $cantidad, $precio_unitario) {
+    try {
+      $id_pedido = 0;
+      $this->setFechaIngreso($fecha_ingreso);
+      $this->setIdAcceso($id_acceso);
+      $this->setCantidad($cantidad);
+      $this->setIdProducto($id_producto);
+      $this->setPreciounitario($precio_unitario);
+      /*       * *
+       * 1.- Valido si existe el pedido con id de acceso
+       * 
+       */
+      $id_pedido = $this->pedidoExiste($id_acceso);
+      if ($id_pedido == 0) {
+        //pedido no existe
+        if ($this->myException->getEstado() == 0) {
+          #ES 0 SI NO EXISTE EL Producto					
+          $this->bd->beginTransaction();
+          //INGRESO EL PEDIDO
+          $parametros = array(
+              "ID_ACCESO" => $this->getIdAcceso(),
+              "FECHA_INGRESO" => $this->getFechaIngreso()
+          );
+          $rs1 = $this->bd->insert('pedidos', $parametros);
+          if ($this->bd->myException->getEstado() == 0) {
+            $this->setIdPedido($this->bd->lastId());
+            $parametrosDetalle = array(
+                "ID_PRODUCTO" => $this->getIdProducto(),
+                "ID_PEDIDO" => $this->getIdPedido(),
+                "DEPE_CANTIDAD" => $this->getCantidad(),
+                "DEPE_PRECIO_UNITARIO" => $this->getPreciounitario(),
+                "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA
+            );
+            $rs1 = $this->bd->insert('detalle_pedido', $parametrosDetalle);
+            if ($this->bd->myException->getEstado() == 0) {
+              $this->bd->commit();
+              return 1;
+            } else {
+              $this->bd->rollBack();
+              $this->myException->setEstado(1);
+              foreach ($this->bd->myException->getMensaje() as $er) {
+                $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO CREAR " . $this->__toString() . " " . $parametros));
+              }//fin del for each que me informa del error al realizar en insert
+            }
+          } else {
+            $this->bd->rollBack();
+            $this->myException->setEstado(1);
+            foreach ($this->bd->myException->getMensaje() as $er) {
+              $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO CREAR " . $this->__toString() . " " . $parametros));
+            }//fin del for each que me informa del error al realizar en insert
+          }//fin del if que verifica que la coneccion no se pierda
+        } else {
+          $this->bd->rollBack();
+          $this->myException->setEstado(1);
+          foreach ($this->myException->getMensaje() as $er) {
+            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+          }//fin del for each que me informa del error al realizar en insert
+          return 0;
+        }//fin del if verifica que la conexion no se haya perdido
+      } else {
+        //pedido existe agrego solo el detalle del pedido
+        if ($this->bd->myException->getEstado() == 0) {
+          $this->setIdPedido($id_pedido);
+          $parametrosDetalle = array(
+              "ID_PRODUCTO" => $this->getIdProducto(),
+              "ID_PEDIDO" => $this->getIdPedido(),
+              "DEPE_CANTIDAD" => $this->getCantidad(),
+              "DEPE_PRECIO_UNITARIO" => $this->getPreciounitario(),
+              "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA
+          );
+          $rs1 = $this->bd->insert('detalle_pedido', $parametrosDetalle);
+          if ($this->bd->myException->getEstado() == 0) {
+            return 1;
+          } else {
+            $this->myException->setEstado(1);
+            foreach ($this->bd->myException->getMensaje() as $er) {
+              $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO CREAR " . $this->__toString() . " " . $parametros));
+            }//fin del for each que me informa del error al realizar en insert
+          }
+        } else {
+          $this->myException->setEstado(1);
+          foreach ($this->bd->myException->getMensaje() as $er) {
+            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin'] . " METODO CREAR " . $this->__toString() . " " . $parametros));
+          }//fin del for each que me informa del error al realizar en insert
+        }//fin del if que verifica que la coneccion no se pierda
+      }
+    } catch (Exception $e) {
+      $this->bd->rollBack();
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+      $this->myException->addError($error);
+    }
+  }
+
+  public function pedidoExiste($idAcceso) {
+    try {
+      $this->setIdAcceso($idAcceso);
+      $sql = "SELECT ID_PEDIDO FROM pedidos WHERE ID_ACCESO=?";
+      $res = $this->bd->select($sql, array($this->getIdAcceso()));
+      if ($this->bd->myException->getEstado() == 0) {
+        if ($rs = $res->fetch()) {
+          return $rs["ID_PEDIDO"];//devuelve 1 si encuentra
+        } else {
+          return 0; //devuelve 0 si no encuentra anda
+        }//fin del if que me permite verificar si encontro datos o no
+      } else {
+        $this->myException->setEstado(1);
+        foreach ($this->bd->myException->getMensaje() as $er) {
+          $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+        }
+        return 0;
+      }//fin del if que me contAccesoa que no se haya caido la consulta
+    } catch (Exception $e) {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+      $this->myException->addError($error);
+    }
+  }
+
+  public function listarPedidosPendientes() {
+    try {
+      $sql = "SELECT m.ID_MESA,m.ME_NOMBRE_MESA, dp.ID_DETALLEPEDIDO, dp.ID_PRODUCTO, p.PRO_NOMBRE, p.PRO_PRECIO_UNITARIO, 
+        dp.ID_ESTADO_PEDIDO,e.ESPE_DESCRIPCION FROM detalle_pedido dp 
+        INNER JOIN pedidos pe ON pe.ID_PEDIDO = dp.ID_PEDIDO
+        INNER JOIN productos p ON dp.ID_PRODUCTO=p.ID_PRODUCTO 
+        INNER JOIN estadopedido e ON dp.ID_ESTADO_PEDIDO=e.ID_ESTADOPEDIDO 
+        INNER JOIN acceso a ON a.ID_ACCESO=pe.ID_ACCESO
+        INNER JOIN mesa m ON m.ID_MESA=a.ID_MESA
+        WHERE e.ID_ESTADOPEDIDO=? OR e.ID_ESTADOPEDIDO=?";
+      $condicion = array(Configuracion::$EN_COLA, Configuracion::$EN_PREPARACION);
+      $res = $this->bd->select($sql, $condicion);
+      if ($this->bd->myException->getEstado() == 0) {
+        while ($rs = $res->fetch()) {
+          $campos[] = array(
+              "id_detalle_pedido" => $rs["ID_DETALLEPEDIDO"],
+              "id_producto"=>$rs["ID_PRODUCTO"],
+              "nombre_plato"=>$rs["PRO_NOMBRE"],
+              "precio_unitario"=>$rs["PRO_PRECIO_UNITARIO"],
+              "estado_pedido"=>$rs["ESPE_DESCRIPCION"],
+              "id_mesa"=>$rs["ID_MESA"],
+              "nombre_mesa"=>$rs["ME_NOMBRE_MESA"]
+          );
+        }
+         return $campos;
+      } else {
+        $this->myException->setEstado(1);
+        foreach ($this->bd->myException->getMensaje() as $er) {
+          $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+        }
+        return 0;
+      }
+    } catch (Exception $e) {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+    }
   }
 
   public function __construct() {

@@ -228,7 +228,7 @@ class Producto {
       /*       * *	aki pregunto si se cumplieron todas las validaciones de los SET	** */
       if ($this->myException->getEstado() == 0) {
         $condicion = array("id_producto" => $this->getIdProducto());
-        $parametros = array("PRO_DESCRIPCION" => $this->getDescripcion(), "ID_SUBCATEGORIA" > $this->getIdSubcategoria(),
+        $parametros = array("PRO_DESCRIPCION" => $this->getDescripcion(), "ID_SUBCATEGORIA" => $this->getIdSubcategoria(),
             "PRO_PRECIO_UNITARIO" => $this->getPrecioUnitario(),"PRO_NOMBRE" => $this->getNombre(),
             "PRO_PORCIONES" => $this->getPorciones());
 
