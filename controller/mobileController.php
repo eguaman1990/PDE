@@ -86,6 +86,12 @@ if (isset($_REQUEST["cantidad"])) {
   $cantidad = "";
 }//cantidad
 
+if (isset($_REQUEST["id_detalle_pedido"])) {
+  $id_detalle_pedido= $_REQUEST["id_detalle_pedido"];
+} else {
+  $id_detalle_pedido= "";
+}//id_detalle_pedido
+
 if (isset($_REQUEST["precio_unitario"])) {
   $precio_unitario =$_REQUEST["precio_unitario"];
   $precio_unitario = str_replace("$","",$precio_unitario);
@@ -252,6 +258,50 @@ if($accion=="listarPedidos"){
 	$respuesta[] = array("estado" => $estado, "mensaje" => $mensaje,"campos"=>$campos);
   $objPedido = null;
 }
+
+if($accion=="prepararPedido"){
+  $objPedido = new Pedido();
+  $res = $objPedido->prepararPedido($id_detalle_pedido);
+  if($res==1){
+    $estado="ok";
+    $mensaje="Pedido en Preparación";
+  }else{
+    $estado="error";
+    $mensaje=$objPedido->myException->getMensaje();
+  }
+  $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje);
+  $objPedido = null;
+}
+
+if($accion=="pedidoListo"){
+  $objPedido = new Pedido();
+  $res = $objPedido->pedidoListo($id_detalle_pedido);
+  if($res==1){
+    $estado="ok";
+    $mensaje="Pedido en Preparación";
+  }else{
+    $estado="error";
+    $mensaje=$objPedido->myException->getMensaje();
+  }
+  $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje);
+  $objPedido = null;
+}
+
+if($accion=="listarPedidosCliente"){
+  $id_acceso= $_SESSION["id_acceso"];
+  $objPedido = new Pedido();
+  $campos = $objPedido->listarPedidosCliente($id_acceso);
+  if($objPedido->myException->getEstado()==0){
+    $estado="ok";
+    $mensaje="Listado de Pedidos ";
+  }else{
+    $estado="error";
+    $mensaje=$objPedido->myException->getMensaje();
+  }
+  $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje,"campos"=>$campos,"id_acceso"=>$id_acceso);
+  $objPedido = null;
+}
+
 //****************************	FIN DEL ELIMINAR PORCION		*********************************************//
 ###########################################################################################################
 ###########################################################################################################

@@ -1,6 +1,6 @@
 <?php
-/*session_start();
-require_once './secureAdminClient.php';*/
+session_start();
+require_once './secureAdminClient.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,18 +17,11 @@ require_once './secureAdminClient.php';*/
     <link href="../resources/css/theme.css" rel="stylesheet" type="text/css"/>
     <title>::Pedido Digital Express::</title>
   </head>
-  <body>
+  <body style="padding-top: 50px;">
     <?php require_once("header.php"); ?>
-    <div id="menu" class="panel panel-success">
+    <div id="menu" class="panel panel-success" >
       <div class="panel-heading">MENU</div>
       <ul id="categoria" class="list-group">
-        <li class="list-group-item">
-          <p>Papas con carne <span class="negrita derecha">Precio: $1.234</span></p>
-          <p class="descripcion">papas fritas con carne <span class="negrita derecha">2 porciones</span> </p>
-          <button type="submit" class="btn btn-lg btn-primary btn-block btn-xs" id="ingresar">
-            <span class="glyphicon glyphicon-plus"></span>
-            Pedir</button>
-        </li>
       </ul>
     </div>
     <br />

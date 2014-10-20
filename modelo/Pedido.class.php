@@ -114,7 +114,7 @@ class Pedido {
 
   public function setIdDetallePedido($idDetallePedido) {
     if (strlen(trim($idDetallePedido)) != 0) {
-      $this->idDetallePedio = $idDetallePedido;
+      $this->idDetallePedido = $idDetallePedido;
     } else {
       $this->myException->setEstado(1);
       $error = array(
@@ -281,7 +281,7 @@ class Pedido {
       $res = $this->bd->select($sql, array($this->getIdAcceso()));
       if ($this->bd->myException->getEstado() == 0) {
         if ($rs = $res->fetch()) {
-          return $rs["ID_PEDIDO"];//devuelve 1 si encuentra
+          return $rs["ID_PEDIDO"]; //devuelve 1 si encuentra
         } else {
           return 0; //devuelve 0 si no encuentra anda
         }//fin del if que me permite verificar si encontro datos o no
@@ -304,8 +304,9 @@ class Pedido {
 
   public function listarPedidosPendientes() {
     try {
+      $campos=array();
       $sql = "SELECT m.ID_MESA,m.ME_NOMBRE_MESA, dp.ID_DETALLEPEDIDO, dp.ID_PRODUCTO, p.PRO_NOMBRE, p.PRO_PRECIO_UNITARIO, 
-        dp.ID_ESTADO_PEDIDO,e.ESPE_DESCRIPCION FROM detalle_pedido dp 
+        dp.ID_ESTADO_PEDIDO,e.ESPE_DESCRIPCION, dp.FECHA_PEDIDO, dp.ID_ESTADO_PEDIDO FROM detalle_pedido dp 
         INNER JOIN pedidos pe ON pe.ID_PEDIDO = dp.ID_PEDIDO
         INNER JOIN productos p ON dp.ID_PRODUCTO=p.ID_PRODUCTO 
         INNER JOIN estadopedido e ON dp.ID_ESTADO_PEDIDO=e.ID_ESTADOPEDIDO 
@@ -318,15 +319,17 @@ class Pedido {
         while ($rs = $res->fetch()) {
           $campos[] = array(
               "id_detalle_pedido" => $rs["ID_DETALLEPEDIDO"],
-              "id_producto"=>$rs["ID_PRODUCTO"],
-              "nombre_plato"=>$rs["PRO_NOMBRE"],
-              "precio_unitario"=>$rs["PRO_PRECIO_UNITARIO"],
-              "estado_pedido"=>$rs["ESPE_DESCRIPCION"],
-              "id_mesa"=>$rs["ID_MESA"],
-              "nombre_mesa"=>$rs["ME_NOMBRE_MESA"]
+              "id_producto" => $rs["ID_PRODUCTO"],
+              "nombre_plato" => $rs["PRO_NOMBRE"],
+              "precio_unitario" => $rs["PRO_PRECIO_UNITARIO"],
+              "estado_pedido" => $rs["ESPE_DESCRIPCION"],
+              "id_mesa" => $rs["ID_MESA"],
+              "nombre_mesa" => $rs["ME_NOMBRE_MESA"],
+              "fecha_pedido" => $rs["FECHA_PEDIDO"],
+              "id_estado_pedido"=>$rs["ID_ESTADO_PEDIDO"]
           );
         }
-         return $campos;
+        return $campos;
       } else {
         $this->myException->setEstado(1);
         foreach ($this->bd->myException->getMensaje() as $er) {
@@ -341,6 +344,109 @@ class Pedido {
           'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
       );
     }
+  }
+
+  public function prepararPedido($idDetallePedido) {
+    try {
+      $this->setIdDetallePedido($idDetallePedido);
+      if($this->myException->getEstado()==0){
+        $parametros=array("id_estado_pedido"=>  Configuracion::$EN_PREPARACION);
+        $condicion=array("id_detallepedido"=>$this->getIdDetallePedido());
+        $rs=$this->bd->update("detalle_pedido", $parametros, $condicion);
+        if($this->bd->myException->getEstado()==0){
+          return 1;
+        }else{
+          $this->myException->setEstado(1);
+          foreach ($this->bd->myException->getMensaje() as $er) {
+            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+          }
+          return 0;
+        }
+      }else{
+        $this->myException->setEstado(1);
+        return 0;
+      }
+    } catch (Exception $e) {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+    }
+  }
+  
+  public function pedidoListo($idDetallePedido) {
+    try {
+      $this->setIdDetallePedido($idDetallePedido);
+      if($this->myException->getEstado()==0){
+        $parametros=array("id_estado_pedido"=>  Configuracion::$LISTO);
+        $condicion=array("id_detallepedido"=>$this->getIdDetallePedido());
+        $rs=$this->bd->update("detalle_pedido", $parametros, $condicion);
+        if($this->bd->myException->getEstado()==0){
+          return 1;
+        }else{
+          $this->myException->setEstado(1);
+          foreach ($this->bd->myException->getMensaje() as $er) {
+            $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+          }
+          return 0;
+        }
+      }else{
+        $this->myException->setEstado(1);
+        return 0;
+      }
+    } catch (Exception $e) {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+    }
+  }
+  
+  public function listarPedidosCliente($idAcceso){
+    try {
+      $this->setIdAcceso($idAcceso);
+      $campos=array();
+      $sql = "SELECT p.id_pedido,dp.ID_DETALLEPEDIDO,dp.ID_PRODUCTO,dp.ID_ESTADO_PEDIDO,  
+        dp.DEPE_CANTIDAD,dp.DEPE_PRECIO_UNITARIO,dp.FECHA_PEDIDO,dp.FECHA_TERMINO_PREPARACION,  
+        pr.PRO_NOMBRE, ep.ESPE_DESCRIPCION FROM pedidos p  
+        INNER JOIN detalle_pedido dp ON p.ID_PEDIDO=dp.ID_PEDIDO  
+        INNER JOIN productos pr ON dp.ID_PRODUCTO = pr.ID_PRODUCTO  
+        INNER JOIN estadopedido ep ON dp.ID_ESTADO_PEDIDO=ep.ID_ESTADOPEDIDO where p.id_acceso=?";
+      $condicion = array($this->getIdAcceso());
+      $res = $this->bd->select($sql, $condicion);
+      if ($this->bd->myException->getEstado() == 0) {
+        while ($rs = $res->fetch()) {
+          $campos[] = array(
+              "id_pedido" => $rs["id_pedido"],
+              "id_detalle_pedido" => $rs["ID_DETALLEPEDIDO"],
+              "id_producto" => $rs["ID_PRODUCTO"],
+              "id_estado_pedido"=>$rs["ID_ESTADO_PEDIDO"],
+              "cantidad"=>$rs["DEPE_CANTIDAD"],
+              "precio_unitario" => $rs["DEPE_PRECIO_UNITARIO"],
+              "fecha_pedido" => $rs["FECHA_PEDIDO"],
+              "fecha_termino" => $rs["FECHA_TERMINO_PREPARACION"],
+              "nombre_plato" => $rs["PRO_NOMBRE"],
+              "estado_pedido" => $rs["ESPE_DESCRIPCION"]
+          );
+        }
+        return $campos;
+      } else {
+        $this->myException->setEstado(1);
+        foreach ($this->bd->myException->getMensaje() as $er) {
+          $this->myException->addError(array('user' => $er['user'], 'admin' => $er['admin']));
+        }
+        return 0;
+      }
+    } catch (Exception $e) {
+      $this->myException->setEstado(1);
+      $error = array(
+          'user' => 'SE PRODUJO UN ERROR. COMUNICARSE CON EL ADMINISTRADOR DEL SISTEMA.',
+          'admin' => $e->getMessage() . "<br>codigo: " . $e->getCode() . "<br>linea: " . $e->getLine() . "<br>archivo: " . $e->getFile()
+      );
+    }
+  
   }
 
   public function __construct() {

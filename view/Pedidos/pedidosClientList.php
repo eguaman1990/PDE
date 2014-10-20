@@ -27,7 +27,52 @@ require_once "../../secureadmin.php";
     <script src="../../resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).on("ready", function() {
+        var EN_COLA = "1";
+        var EN_PREPARACION = "2";
+        var LISTO = "3";
         listar();
+        function prepararPedido(id_detalle_pedido) {
+          $.ajax({
+            type: 'POST',
+            url: "../../controller/mobileController.php",
+            data: {
+              "accion": "prepararPedido",
+              "id_detalle_pedido": id_detalle_pedido
+            },
+            success: function(data, textStatus, jqXHR) {
+              if (data[0].estado === "ok") {
+                listar();
+              }else{
+                
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            }
+          });
+        }
+        
+        function pedidoListo(id_detalle_pedido) {
+          $.ajax({
+            type: 'POST',
+            url: "../../controller/mobileController.php",
+            data: {
+              "accion": "pedidoListo",
+              "id_detalle_pedido": id_detalle_pedido
+            },
+            success: function(data, textStatus, jqXHR) {
+              if (data[0].estado === "ok") {
+                listar();
+              }else{
+                
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            }
+          });
+        }
+
         function listar() {
           $.ajax({
             type: 'POST',
@@ -36,79 +81,91 @@ require_once "../../secureadmin.php";
               "accion": "listarPedidos"
             },
             success: function(data, textStatus, jqXHR) {
-              if(data[0].estado==="ok"){
-                if(data[0].campos.length >0){
+              if (data[0].estado === "ok") {
+                if (data[0].campos.length > 0) {
                   var row = "row0";
-                  var cor=0;
+                  var cor = 0;
                   $(".lista").empty();
-                  var tabla= $("<table>",{
-                    id:"tabla",
-                    class:"table table-striped"
+                  var tabla = $("<table>", {
+                    id: "tabla",
+                    class: "table table-striped"
                   });
-                  var thead=$("<thead>");
+                  var thead = $("<thead>");
                   var tr = $("<tr>");
-                  var th=$("<th>",{text:"Nro"});
+                  var th = $("<th>", {text: "Nro"});
                   $(tr).append($(th));
-                  var th=$("<th>",{text:"Mesa"});
+                  var th = $("<th>", {text: "Mesa"});
                   $(tr).append($(th));
-                  var th=$("<th>",{text:"Plato"});
+                  var th = $("<th>", {text: "Plato"});
                   $(tr).append($(th));
-                  var th=$("<th>",{text:"Estado"});
+                  var th = $("<th>", {text: "Estado"});
                   $(tr).append($(th));
-                  var th=$("<th>",{text:"Acciones"});
+                  var th = $("<th>", {text: "Fecha Pedido"});
                   $(tr).append($(th));
-
-                  
+                  var th = $("<th>", {text: "Acciones"});
+                  $(tr).append($(th));
                   $(thead).append($(tr));
                   $(tabla).append($(thead));
-                  
-                  $.each(data[0].campos, function(key,value){
-                    if(row === "row0" ){
-                      row= "row1";
-                    }else{
-                      row= "row0";
+                  $.each(data[0].campos, function(key, value) {
+                    if (row === "row0") {
+                      row = "row1";
+                    } else {
+                      row = "row0";
                     }
                     cor++;
                     var tr = $("<tr>");
                     $(tr).addClass(row);
-                    var td=$("<td>",{text:cor});
+                    var td = $("<td>", {text: cor});
                     $(tr).append($(td));
-                    var td=$("<td>",{text:value.nombre_mesa});
+                    var td = $("<td>", {text: value.nombre_mesa});
                     $(tr).append($(td));
-                    var td=$("<td>",{text:value.nombre_plato});
+                    var td = $("<td>", {text: value.nombre_plato});
                     $(tr).append($(td));
-                    var td=$("<td>",{text:value.estado_pedido});
+                    var td = $("<td>", {text: value.estado_pedido});
                     $(tr).append($(td));
-                    var td=$("<td>",{text:"aqui las acciones"});
+                    var td = $("<td>", {text: value.fecha_pedido});
                     $(tr).append($(td));
-                    
-                    /*var button = $("<a>", {
-                      href: "usuariosAdd.php?id_usuario=" + value.id_usuario,
-                      name: "btnEditar",
-                      id: "btnEditar",
-                      html: "Editar"
-                    });
-                    $(button).addClass("btn btn-success btn-xs");
-                    var btnDelete = $("<a>", {
-                      href: "#",
-                      name: "btnDelete",
-                      html: "Eliminar",
-                      id: "btnDelete" + value.id_producto,
-                      click: function() {
-                        var rs = window.confirm("Desea Eliminar este Usuario?");
-                        if (rs === true) {
-                            
+                    var td = $("<td>");
+                    $(tr).append($(td));
+                    if (value.id_estado_pedido === EN_COLA) {
+                      var button = $("<a>", {
+                        href: "#",
+                        name: "btnPreparar",
+                        id: "btnPreparar" + value.id_detalle_pedido,
+                        html: "Preparar",
+                        click: function() {
+                          prepararPedido(value.id_detalle_pedido);
                         }
-                      }
-                    });*/
+
+                      });
+                      $(button).addClass("btn btn-success btn-lg");
+                      $(td).append($(button));
+                    }
+
+                    if (value.id_estado_pedido === EN_PREPARACION) {
+
+                      var btnDelete = $("<a>", {
+                        href: "#",
+                        name: "btnListo",
+                        html: "Listo",
+                        id: "btnListo" + value.id_producto,
+                        click: function() {
+                          pedidoListo(value.id_detalle_pedido);
+                        }
+                      });
+                      $(btnDelete).addClass("btn btn-primary btn-lg");
+                      $(td).append($(btnDelete));
+                      $(tr).append($(td));
+                    }
+                   
                     $(tabla).append(tr);
                   });
                   $(".lista").append($(tabla));
-                }else{
+                } else {
                   $(".lista").html("No Existen Pedidos");
                 }
-              }else{
-                
+              } else {
+
               }
             },
             error: function(jqXHR, textStatus, errorThrown) {
