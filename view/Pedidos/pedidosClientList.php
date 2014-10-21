@@ -72,7 +72,7 @@ require_once "../../secureadmin.php";
             }
           });
         }
-
+        var t;
         function listar() {
           $.ajax({
             type: 'POST',
@@ -158,7 +158,7 @@ require_once "../../secureadmin.php";
                       $(tr).append($(td));
                     }
                    
-                    $(tabla).append(tr);
+                    $(tabla).append($(tr));
                   });
                   $(".lista").append($(tabla));
                 } else {
@@ -173,6 +173,9 @@ require_once "../../secureadmin.php";
             }
 
           });
+          t = setTimeout(function() {
+            listar();
+          }, 3000);
         }
       });
 

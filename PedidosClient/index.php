@@ -55,7 +55,7 @@ require_once './secureAdminClient.php';
             },
             success: function(data, textStatus, jqXHR) {
               if(data[0].estado==="ok"){
-                window.alert("Pedido Ingresado Exitosamente");
+                //window.alert("Pedido Ingresado Exitosamente");
                 window.location.href = "index.php";
               }else{
                 window.alert("Mensaje de Usuario: " + e[0].mensaje[0].user);

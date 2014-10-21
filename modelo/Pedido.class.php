@@ -208,7 +208,8 @@ class Pedido {
                 "ID_PEDIDO" => $this->getIdPedido(),
                 "DEPE_CANTIDAD" => $this->getCantidad(),
                 "DEPE_PRECIO_UNITARIO" => $this->getPreciounitario(),
-                "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA
+                "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA,
+                "FECHA_PEDIDO"=>$this->getFechaIngreso()
             );
             $rs1 = $this->bd->insert('detalle_pedido', $parametrosDetalle);
             if ($this->bd->myException->getEstado() == 0) {
@@ -245,7 +246,8 @@ class Pedido {
               "ID_PEDIDO" => $this->getIdPedido(),
               "DEPE_CANTIDAD" => $this->getCantidad(),
               "DEPE_PRECIO_UNITARIO" => $this->getPreciounitario(),
-              "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA
+              "ID_ESTADO_PEDIDO" => Configuracion::$EN_COLA,
+              "FECHA_PEDIDO"=>$this->getFechaIngreso()
           );
           $rs1 = $this->bd->insert('detalle_pedido', $parametrosDetalle);
           if ($this->bd->myException->getEstado() == 0) {
@@ -424,7 +426,7 @@ class Pedido {
               "id_producto" => $rs["ID_PRODUCTO"],
               "id_estado_pedido"=>$rs["ID_ESTADO_PEDIDO"],
               "cantidad"=>$rs["DEPE_CANTIDAD"],
-              "precio_unitario" => $rs["DEPE_PRECIO_UNITARIO"],
+              "precio_unitario" => "$ " . number_format(utf8_encode($rs["DEPE_PRECIO_UNITARIO"])),
               "fecha_pedido" => $rs["FECHA_PEDIDO"],
               "fecha_termino" => $rs["FECHA_TERMINO_PREPARACION"],
               "nombre_plato" => $rs["PRO_NOMBRE"],
